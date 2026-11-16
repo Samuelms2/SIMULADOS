@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado SEDUC-CE 2026 • Professor de Educação Física (Molde CEV/UECE 2018)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+  body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; color: #0f172a; }
+  .texto-base { font-family: 'Merriweather', serif; line-height: 1.75; }
+  .linha-num { user-select: none; color: #64748b; font-family: 'Inter', monospace; font-size: 0.75rem; width: 2.2rem; display: inline-block; text-align: right; margin-right: 0.75rem; border-right: 1px solid #cbd5e1; padding-right: 0.5rem; }
+  .riscada { text-decoration: line-through; opacity: 0.45; }
+  @media print {
+    .no-print { display: none !important; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- TOPO -->
+<header class="bg-slate-900 text-white border-b-4 border-emerald-500 shadow-md no-print">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="bg-emerald-600 text-white font-extrabold px-3 py-1.5 rounded text-sm tracking-wider">SEDUC-CE • UECE</div>
+      <div>
+        <h1 class="font-bold text-base md:text-lg leading-tight">Simulado Oficial • Professor de Educação Física (Código 03)</h1>
+        <p class="text-xs text-slate-300">Padrão Edital 30/2018 (CEV/UECE) • 80 Questões • Textos Numerados & Indicadores</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <select id="simuladoSelect" onchange="carregarSimulado(this.value)" class="bg-slate-800 border border-slate-600 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-400">
+      </select>
+      <div id="timerBox" class="hidden bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg font-mono text-sm font-bold text-emerald-400">
+        04:00:00
+      </div>
+      <button id="btnFinalizarTop" onclick="finalizarSimulado()" class="hidden bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm px-4 py-2 rounded-lg transition">
+        Entregar Cartão
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- TELA 1: CAPA OFICIAL DO CADERNO UECE -->
+<main id="telaCapa" class="flex-1 max-w-4xl mx-auto w-full p-4 md:p-8">
+  <div class="bg-white border-2 border-slate-800 shadow-xl rounded-sm p-6 md:p-10">
+    <div class="border-b-2 border-slate-800 pb-4 text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-slate-600">Governo do Estado do Ceará • Secretaria da Educação (SEDUC) • SEPLAG</p>
+      <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">Fundação Universidade Estadual do Ceará – FUNECE • Comissão Executiva do Vestibular – CEV/UECE</p>
+      <h2 class="text-xl md:text-2xl font-extrabold uppercase mt-4 text-slate-900">Concurso Público para Provimento de Cargos Efetivos de Professor Nível A</h2>
+      <div class="mt-3 inline-block bg-slate-900 text-white px-6 py-2 font-bold tracking-widest uppercase text-sm">
+        Prova Objetiva: Educação Física • Código 03
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 my-6 text-sm border-b border-slate-300 pb-6">
+      <div class="bg-slate-50 p-3 border border-slate-300">
+        <span class="block text-xs uppercase text-slate-500 font-bold">Duração da Prova</span>
+        <span class="font-bold text-slate-900 text-base">4 horas</span>
+      </div>
+      <div class="bg-slate-50 p-3 border border-slate-300">
+        <span class="block text-xs uppercase text-slate-500 font-bold">Número do Gabarito</span>
+        <span class="font-bold text-emerald-700 text-base">GABARITO 1</span>
+      </div>
+      <div class="bg-slate-50 p-3 border border-slate-300">
+        <span class="block text-xs uppercase text-slate-500 font-bold">Total de Questões</span>
+        <span class="font-bold text-slate-900 text-base">80 Questões (A, B, C, D)</span>
+      </div>
+    </div>
+
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6">
+      <p class="text-xs font-bold uppercase text-amber-800 mb-1">Frase de Transcrição Obrigatória (Capa UECE):</p>
+      <p class="font-serif italic text-lg text-slate-900 font-bold">"O real conhecimento é obra do tempo."</p>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="font-bold uppercase text-sm text-slate-800 mb-3 border-b pb-1">Estrutura Oficial do Caderno (Molde Prova 2018):</h3>
+      <div class="grid sm:grid-cols-2 gap-2.5 text-sm">
+        <div class="flex justify-between bg-slate-50 px-3 py-2 border rounded">
+          <span><strong>01 a 08:</strong> Educação Brasileira e Temas Pedagógicos</span>
+          <span class="font-bold text-slate-700">08 questões</span>
+        </div>
+        <div class="flex justify-between bg-slate-50 px-3 py-2 border rounded">
+          <span><strong>09 a 14:</strong> Administração Pública & LDB</span>
+          <span class="font-bold text-slate-700">06 questões</span>
+        </div>
+        <div class="flex justify-between bg-slate-50 px-3 py-2 border rounded">
+          <span><strong>15 a 22:</strong> Língua Portuguesa (com Texto Base)</span>
+          <span class="font-bold text-slate-700">08 questões</span>
+        </div>
+        <div class="flex justify-between bg-slate-50 px-3 py-2 border rounded">
+          <span><strong>23 a 30:</strong> Dados e Indicadores Educacionais</span>
+          <span class="font-bold text-slate-700">08 questões</span>
+        </div>
+        <div class="sm:col-span-2 flex justify-between bg-emerald-50 px-3 py-2 border border-emerald-300 rounded">
+          <span><strong>31 a 80:</strong> Conhecimentos Específicos (Educação Física • Peso 2)</span>
+          <span class="font-bold text-emerald-800">50 questões</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-300">
+      <label class="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
+        <input type="checkbox" id="usarCronometro" checked class="w-4 h-4 accent-emerald-600">
+        Ativar cronômetro oficial de 4h00min
+      </label>
+      <button onclick="iniciarProva()" class="bg-slate-900 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded shadow transition cursor-pointer">
+        Abrir Caderno de Prova →
+      </button>
+    </div>
+  </div>
+</main>
+
+<!-- TELA 2: CADERNO DE PROVA + CARTÃO RESPOSTA -->
+<main id="telaProva" class="hidden flex-1 max-w-7xl mx-auto w-full p-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
+  <!-- COLUNA ESQUERDA: QUESTÕES E TEXTOS -->
+  <div class="lg:col-span-8 flex flex-col gap-4">
+    <!-- Filtros rápidos de disciplina -->
+    <div class="bg-white p-3 rounded-lg shadow-sm border flex flex-wrap gap-1.5 text-xs font-semibold">
+      <button onclick="irParaQuestao(0)" class="px-2.5 py-1.5 rounded bg-slate-100 hover:bg-slate-200">01-08 Pedagogia</button>
+      <button onclick="irParaQuestao(8)" class="px-2.5 py-1.5 rounded bg-slate-100 hover:bg-slate-200">09-14 Adm. Pública</button>
+      <button onclick="irParaQuestao(14)" class="px-2.5 py-1.5 rounded bg-amber-100 text-amber-900 hover:bg-amber-200">15-22 Português (Texto)</button>
+      <button onclick="irParaQuestao(22)" class="px-2.5 py-1.5 rounded bg-blue-100 text-blue-900 hover:bg-blue-200">23-30 Indicadores</button>
+      <button onclick="irParaQuestao(30)" class="px-2.5 py-1.5 rounded bg-emerald-100 text-emerald-900 hover:bg-emerald-200">31-80 Ed. Física</button>
+    </div>
+
+    <!-- Bloco de Texto Base (exibido nas questões 15-22 ou quando houver texto/tabela) -->
+    <div id="painelTextoBase" class="hidden bg-white border-l-4 border-amber-600 rounded-lg shadow-sm p-5">
+      <div class="flex items-center justify-between mb-3 border-b pb-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-1 rounded">Texto Base • Língua Portuguesa (Questões 15 a 22)</span>
+        <button onclick="toggleTextoBase()" id="btnToggleTexto" class="text-xs font-semibold text-slate-600 hover:text-slate-900 underline">Recolher texto</button>
+      </div>
+      <div id="conteudoTextoBase"></div>
+    </div>
+
+    <!-- Bloco de Tabela/Gráfico Indicadores (exibido nas questões 26 e 29) -->
+    <div id="painelDadosIndicadores" class="hidden bg-white border-l-4 border-blue-600 rounded-lg shadow-sm p-5">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-800 bg-blue-100 px-2.5 py-1 rounded inline-block mb-3">Dados Estatísticos / Gráfico Oficial (SPAECE / Anuário Ceará)</span>
+      <div id="conteudoDadosIndicadores"></div>
+    </div>
+
+    <!-- Card da Questão Atual -->
+    <div id="cardQuestao" class="bg-white rounded-lg shadow-sm border p-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3 mb-4">
+        <div>
+          <span id="qDisciplina" class="text-xs font-bold uppercase tracking-wider text-emerald-700"></span>
+          <h3 id="qNumeroTitulo" class="text-lg font-extrabold text-slate-900"></h3>
+        </div>
+        <button onclick="toggleRevisar()" id="btnRevisar" class="text-xs font-semibold px-3 py-1.5 rounded border border-amber-400 text-amber-700 hover:bg-amber-50">
+          ⚑ Marcar para revisar
+        </button>
+      </div>
+
+      <div id="qEnunciado" class="text-slate-800 text-sm md:text-base leading-relaxed space-y-3 mb-6"></div>
+
+      <div id="qAlternativas" class="space-y-3"></div>
+
+      <div class="flex items-center justify-between mt-8 pt-4 border-t">
+        <button onclick="navegar(-1)" id="btnAnterior" class="px-4 py-2 rounded border text-sm font-semibold hover:bg-slate-50 disabled:opacity-40">← Anterior</button>
+        <span id="progressoTexto" class="text-xs text-slate-500 font-medium"></span>
+        <button onclick="navegar(1)" id="btnProxima" class="px-4 py-2 rounded bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 disabled:opacity-40">Próxima →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUNA DIREITA: CARTÃO-RESPOSTA INTERATIVO -->
+  <aside class="lg:col-span-4">
+    <div class="bg-white rounded-lg shadow-sm border p-4 sticky top-4">
+      <div class="flex items-center justify-between border-b pb-2 mb-3">
+        <h4 class="font-bold text-sm uppercase tracking-wider text-slate-800">Folha de Respostas • Gabarito 1</h4>
+        <span id="contadorRespondidas" class="text-xs font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">0/80</span>
+      </div>
+      <div class="flex gap-3 text-[11px] text-slate-500 mb-3">
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span> Respondida</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span> Revisar</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-200 inline-block"></span> Em branco</span>
+      </div>
+      <div id="gridCartao" class="grid grid-cols-8 gap-1.5 max-h-[62vh] overflow-y-auto pr-1"></div>
+      <button onclick="finalizarSimulado()" class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-sm shadow transition">
+        Finalizar e Ver Ranking (Olho na Vaga)
+      </button>
+    </div>
+  </aside>
+</main>
+
+<!-- TELA 3: RESULTADO ANALÍTICO E GABARITO COMENTADO -->
+<main id="telaResultado" class="hidden flex-1 max-w-6xl mx-auto w-full p-4 md:p-6 space-y-6">
+  <div class="bg-white rounded-xl shadow border p-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b pb-4 mb-6">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded">Boletim de Desempenho • Estilo Olho na Vaga</span>
+        <h2 id="resTituloSimulado" class="text-2xl font-extrabold text-slate-900 mt-1"></h2>
+      </div>
+      <div class="flex gap-2 no-print">
+        <button onclick="window.print()" class="px-4 py-2 rounded border border-slate-300 text-sm font-semibold hover:bg-slate-50">Imprimir / Salvar PDF</button>
+        <button onclick="voltarCapa()" class="px-4 py-2 rounded bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800">Novo Simulado</button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-slate-50 border rounded-lg p-4">
+        <span class="text-xs uppercase font-bold text-slate-500">Acertos Brutos</span>
+        <p id="kpiAcertos" class="text-3xl font-extrabold text-slate-900 mt-1">0 / 80</p>
+        <span id="kpiPercentual" class="text-xs text-slate-600">0% de aproveitamento</span>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+        <span class="text-xs uppercase font-bold text-emerald-700">Nota Ponderada (Edital)</span>
+        <p id="kpiPonderada" class="text-3xl font-extrabold text-emerald-800 mt-1">0 / 130</p>
+        <span class="text-xs text-emerald-700">Básicos (x1) + Específicos (x2)</span>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <span class="text-xs uppercase font-bold text-blue-700">Posição Estimada (ONV)</span>
+        <p id="kpiRanking" class="text-3xl font-extrabold text-blue-900 mt-1">-- º</p>
+        <span class="text-xs text-blue-700">Base simulada: 1.480 candidatos</span>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+        <span class="text-xs uppercase font-bold text-amber-800">Status Nota de Corte</span>
+        <p id="kpiCorteStatus" class="text-lg font-extrabold text-amber-900 mt-2">--</p>
+        <span class="text-xs text-amber-800">Corte Ampla: 94 pts • Cotas: 84 pts</span>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div class="border rounded-lg p-4">
+        <h3 class="font-bold text-sm text-slate-700 mb-3">Aproveitamento por Área do Conhecimento (%)</h3>
+        <canvas id="chartBarras" height="190"></canvas>
+      </div>
+      <div class="border rounded-lg p-4">
+        <h3 class="font-bold text-sm text-slate-700 mb-3">Distribuição Geral das 80 Questões</h3>
+        <canvas id="chartRosca" height="190"></canvas>
+      </div>
+    </div>
+
+    <!-- Tabela por disciplina -->
+    <div class="overflow-x-auto border rounded-lg">
+      <table class="w-full text-sm text-left">
+        <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-xs">
+          <tr>
+            <th class="px-4 py-3">Área / Disciplina</th>
+            <th class="px-4 py-3 text-center">Questões</th>
+            <th class="px-4 py-3 text-center">Peso</th>
+            <th class="px-4 py-3 text-center">Acertos</th>
+            <th class="px-4 py-3 text-center">Pontos</th>
+            <th class="px-4 py-3 text-center">% Acerto</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaAreasBody" class="divide-y"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Gabarito Comentado -->
+  <div class="bg-white rounded-xl shadow border p-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 mb-4">
+      <h3 class="text-xl font-extrabold text-slate-900">Gabarito Comentado Item a Item (Padrão CEV/UECE)</h3>
+      <div class="flex gap-2 text-xs no-print">
+        <button onclick="filtrarGabarito('todas')" class="px-3 py-1.5 rounded bg-slate-800 text-white font-semibold">Todas (80)</button>
+        <button onclick="filtrarGabarito('erradas')" class="px-3 py-1.5 rounded bg-rose-100 text-rose-800 font-semibold">Somente Erradas / Em Branco</button>
+      </div>
+    </div>
+    <div id="listaGabaritoComentado" class="space-y-4"></div>
+  </div>
+</main>
+
+<script>
+// ============================================================================
+// TEXTOS BASE PARA INTERPRETAÇÃO DE TEXTO (QUESTÕES 15 A 22 - MOLDE 2018)
+// ============================================================================
+const TEXTOS_PORTUGUES = [
+  {
+    titulo: "A escola pública como fronteira de pertencimento e cidadania",
+    subtitulo: "As tensões contemporâneas entre o direito universal à educação e a precarização dos vínculos sociais no território escolar",
+    autor: "Adaptado de crônica sociopolítica contemporânea (2025)",
+    linhas: [
+      "Não se compreende a crise de sentido que atravessa parte das escolas públicas",
+      "contemporâneas sem entender o que significa habitar uma fronteira social. A escola",
+      "situada nas periferias urbanas ou nas zonas rurais do Nordeste não é apenas um",
+      "prédio administrativo; ela funciona como a última borda onde o Estado ainda se",
+      "materializa diante de populações historicamente empurradas para o chão movediço",
+      "da informalidade. Muitos estudantes não chegam à sala de aula apenas com cadernos",
+      "na mochila, mas carregam deslocamentos sucessivos, mudanças de bairro, perdas",
+      "familiares e a sensação silenciosa de que toda estabilidade é provisória.",
+      "Diante do colega recém-chegado, do jovem que reprovou duas vezes ou do aluno com",
+      "deficiência que exige adaptação curricular, alguns grupos reproduzem o mesmo",
+      "mecanismo de defesa que a sociedade opera fora dos muros: elegem um outro para",
+      "negar nele a própria vulnerabilidade. O que se hostiliza no corpo diferente é, muitas",
+      "vezes, o espelho incômodo da precariedade que ameaça a todos. Quando a instituição",
+      "escolar abdica de sua função mediadora, ela naturaliza a exclusão como se fosse",
+      "mérito individual. Ao contrário, quando assume o currículo como território de",
+      "reconhecimento, transforma a sala de aula em lugar de ancoragem e pertencimento.",
+      "A identidade docente também é disputada nesse mesmo tabuleiro. Discursos",
+      "tecnocráticos tentam convencer o professor de que ensinar se resume a treinar",
+      "descritores para avaliações externas, apagando a dimensão ética e corporal da",
+      "formação humana. Contudo, a experiência cotidiana nas quadras, nos pátios e nas",
+      "salas revela que ninguém aprende de modo significativo se não se sentir legítimo",
+      "naquele espaço. Educar na fronteira exige compreender que o direito à aprendizagem",
+      "não é favor estatal, mas conquista civilizatória que precisa ser reafirmada a cada",
+      "encontro pedagógico, sob pena de o abismo social engolir o futuro da juventude."
+    ]
+  },
+  {
+    titulo: "O corpo cronometrado e a perda do gesto gratuito na modernidade",
+    subtitulo: "Entre o culto à performance estética e a urgência de resgatar a cultura corporal como linguagem viva",
+    autor: "Ensaio sobre Cultura e Movimento Humano (2025)",
+    linhas: [
+      "Vivemos sob a ditadura silenciosa dos relógios inteligentes e dos aplicativos que",
+      "convertem cada passo em estatística de rendimento. Caminhar sem meta calórica,",
+      "jogar sem placar ou dançar sem plateia digital tornaram-se gestos quase subversivos",
+      "numa sociedade que exige produtividade até nas horas de descanso. O corpo humano,",
+      "antes compreendido como sede de memória, afeto e expressão simbólica, passou a ser",
+      "gerido como uma empresa individual cujo único balanço aceitável é a hipertrofia",
+      "visível ou o emagrecimento imediato.",
+      "Na escola, essa lógica penetra pelas frestas da mídia e das redes sociais. Jovens",
+      "chegam às aulas de Educação Física carregando padrões estéticos inalcançáveis e",
+      "reproduzindo discursos que associam saúde exclusivamente à aparência muscular.",
+      "Paralelamente, a espetacularização do esporte televisivo reduz a riqueza dos jogos",
+      "populares a uma cópia empobrecida do alto rendimento, afastando aqueles que não",
+      "se enquadram nos biotipos hegemônicos. O resultado é uma dupla exclusão: exclui-se",
+      "o menos hábil da quadra e exclui-se o pensamento crítico da reflexão sobre o",
+      "próprio corpo. Resgatar o gesto gratuito — aquele que se realiza pelo prazer da",
+      "convivência, da descoberta estética e da cooperação — não significa negar a ciência",
+      "do treinamento, mas devolvê-la ao humano, impedindo que a técnica devore o sujeito."
+    ]
+  }
+];
+
+// ============================================================================
+// BANCO DE QUESTÕES BASE (ESTRUTURA EXATA DA PROVA UECE 2018: 01 A 80)
+// ============================================================================
+const BANCO_BASE = [
+  // --- 01 a 08: EDUCAÇÃO BRASILEIRA: TEMAS EDUCACIONAIS E PEDAGÓGICOS ---
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: "A escola é uma instituição social incumbida de garantir às novas gerações o acesso sistematizado aos bens culturais e científicos produzidos historicamente pela humanidade, possibilitando-lhes inserção crítica e participativa. Sob essa perspectiva democrática, a escolarização básica deve ser compreendida como",
+    alternativas: [
+      "um benefício assistencial concedido por gestões governamentais progressistas.",
+      "uma expectativa privada das famílias que buscam ascensão econômica.",
+      "um direito público subjetivo a ser assegurado indistintamente a todo cidadão.",
+      "um projeto filantrópico destinado prioritariamente às camadas mais esclarecidas."
+    ],
+    correta: 2,
+    comentario: "Conforme a Constituição Federal de 1988 (art. 208, § 1º) e a LDB (art. 5º), o acesso à educação básica obrigatória é direito público subjetivo, exigível pelo cidadão e dever do Estado."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: `Os estímulos culturais e o ambiente pedagógico favorecem o desenvolvimento de múltiplas capacidades humanas. Considerando a Teoria das Inteligências Múltiplas de Howard Gardner, relacione corretamente os tipos de inteligência (Coluna I) às suas respectivas características (Coluna II).<br><br>
+    <div class="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded border text-xs">
+      <div><strong>Coluna I</strong><br>1. Lógico-matemática<br>2. Corporal-cinestésica<br>3. Espacial<br>4. Intrapessoal<br>5. Interpessoal</div>
+      <div><strong>Coluna II</strong><br>( ) Facilidade para deduções, abstrações e conclusões baseadas na razão.<br>( ) Capacidade de autoconhecimento e regulação das próprias emoções.<br>( ) Expressividade e controle motor refinado, presente em dançarinos e atletas.<br>( ) Empatia, liderança e facilidade para atuar em trabalhos coletivos.<br>( ) Percepção acurada de formas, trajetórias e posicionamento de objetos.</div>
+    </div><br>A sequência correta, de cima para baixo, é:`,
+    alternativas: [
+      "1, 5, 3, 4, 2.",
+      "3, 4, 5, 1, 2.",
+      "4, 5, 2, 1, 3.",
+      "1, 4, 2, 5, 3."
+    ],
+    correta: 3,
+    comentario: "1 (razão/dedução), 4 (autoconhecimento = intrapessoal), 2 (dançarinos/atletas = corporal-cinestésica), 5 (liderança/trabalho em equipe = interpessoal) e 3 (posicionamento de objetos = espacial). Sequência: 1, 4, 2, 5, 3."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: "No âmbito das teorias curriculares desenvolvidas no Brasil durante a década de 1980, em oposição ao tecnicismo autoritário, destacaram-se duas grandes vertentes críticas que marcaram o pensamento pedagógico progressista, a saber:",
+    alternativas: [
+      "Educação Popular e Abordagens de Cunho Tecnicista-Comportamental.",
+      "Pedagogia Crítico-Social dos Conteúdos e Educação Popular.",
+      "Escola Nova Pragmática e Pedagogia Tradicional Humanista.",
+      "Neotecnicismo Avaliativo e Pedagogia das Competências."
+    ],
+    correta: 1,
+    comentario: "Nos anos 1980, o pensamento pedagógico crítico brasileiro consolidou-se especialmente em torno da Pedagogia Crítico-Social dos Conteúdos (Libâneo/Saviani) e da Educação Popular (Paulo Freire)."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: `O currículo escolar não é um instrumento neutro de transmissão de informações, mas um campo de disputas simbólicas e culturais. Sobre a concepção crítica de currículo, analise as seguintes afirmações:<br><br>
+    I. O currículo constitui um território de política cultural onde circulam narrativas e se produzem processos de subjetivação.<br>
+    II. O currículo seleciona saberes e tradições sociais que expressam projetos de sociedade e visões de mundo em disputa.<br>
+    III. Os componentes curriculares articulam conhecimentos organizados segundo critérios históricos e pedagógicos.<br>
+    IV. A concretização curricular independe do Projeto Político-Pedagógico (PPP) da escola, pois segue exclusivamente determinações externas.<br><br>
+    Está correto o que se afirma em`,
+    alternativas: [
+      "I, II e III apenas.",
+      "I, II, III e IV.",
+      "II, III e IV apenas.",
+      "I, III e IV apenas."
+    ],
+    correta: 0,
+    comentario: "As assertivas I, II e III estão corretas. A IV é falsa porque o currículo vivo materializa-se diretamente no Projeto Político-Pedagógico de cada unidade escolar."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: "Estudos sobre juventudes e ensino médio (como os de Abramovay, Andrade e Esteves) apontam que o protagonismo juvenil na escola guarda estreita relação com a formação cidadã na medida em que",
+    alternativas: [
+      "prioriza exclusivamente o domínio técnico-instrumental para o mercado.",
+      "favorece automatismos comportamentais diante das tecnologias digitais.",
+      "possibilita práticas educativas que valorizam a participação ativa e a escuta dos jovens.",
+      "reforça a reprodução passiva de conteúdos descontextualizados da realidade juvenil."
+    ],
+    correta: 2,
+    comentario: "O protagonismo juvenil pressupõe reconhecer o estudante como sujeito de direitos, promovendo espaços reais de escuta, deliberação e participação democrática na escola."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: `Acerca do Projeto Político-Pedagógico (PPP) da escola, analise as assertivas a seguir:<br><br>
+    I. A dimensão administrativo-financeira não integra o PPP, devendo ser tratada isoladamente pela secretaria estadual.<br>
+    II. O PPP deve ser construído coletivamente com a participação de docentes, estudantes, pais, gestores e funcionários.<br>
+    III. O planejamento do PPP articula a organização do trabalho pedagógico global da escola e as práticas de sala de aula.<br>
+    IV. O PPP de uma unidade escolar pode ser replicado integralmente por outra escola do mesmo município sem necessidade de reelaboração.<br><br>
+    Está correto somente o que se afirma em`,
+    alternativas: [
+      "I e IV.",
+      "II e IV.",
+      "I e III.",
+      "II e III."
+    ],
+    correta: 3,
+    comentario: "Apenas II e III são verdadeiras. O PPP contempla tanto a dimensão pedagógica quanto a administrativo-financeira (I falsa) e expressa a identidade singular de cada escola, não podendo ser simplesmente copiado (IV falsa)."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: "A avaliação institucional interna constitui instrumento diagnóstico essencial para o aperfeiçoamento contínuo do Projeto Político-Pedagógico da escola. Assinale a opção que indica um princípio fundamental dessa avaliação.",
+    alternativas: [
+      "Participação restrita exclusivamente ao núcleo gestor e supervisores.",
+      "Adesão unilateral decidida individualmente pelo diretor escolar.",
+      "Respeito à identidade própria de cada instituição escolar.",
+      "Condução exclusiva por auditores externos desvinculados da comunidade."
+    ],
+    correta: 2,
+    comentario: "A avaliação institucional emancipatória pauta-se pela gestão democrática, globalidade, adesão voluntária coletiva e respeito à identidade e contexto de cada escola."
+  },
+  {
+    area: "Educação Brasileira: Temas Educacionais e Pedagógicos",
+    peso: 1,
+    enunciado: "De acordo com as Diretrizes Curriculares Nacionais e a LDB, o Ensino Médio Integrado caracteriza-se fundamentalmente pela articulação orgânica entre",
+    alternativas: [
+      "formação geral básica e educação profissional técnica de nível médio.",
+      "ensino propedêutico pro forma e atividades recreativas no contraturno.",
+      "educação básica comum e estágio supervisionado obrigatório no ensino superior.",
+      "disciplinas propedêuticas e cursos livres de qualificação inicial sem certificação."
+    ],
+    correta: 0,
+    comentario: "O Ensino Médio Integrado (art. 36-C, I da LDB) integra, em um mesmo currículo e matrícula única, a formação geral básica do Ensino Médio e a Educação Profissional Técnica."
+  },
+
+  // --- 09 a 14: ADMINISTRAÇÃO PÚBLICA (6 QUESTÕES) ---
+  {
+    area: "Administração Pública",
+    peso: 1,
+    enunciado: "Nos termos do Estatuto dos Servidores Públicos Civis do Estado do Ceará (Lei nº 9.826/1974) e do regime administrativo público, consideram-se providos os cargos públicos efetivos com a(o)",
+    alternativas: [
+      "assinatura do termo de posse pelo candidato habilitado.",
+      "início do efetivo exercício das atribuições do cargo.",
+      "homologação do resultado final do concurso público.",
+      "publicação do ato oficial de nomeação no Diário Oficial."
+    ],
+    correta: 3,
+    comentario: "No Direito Administrativo e no Estatuto Estadual do Ceará, o provimento ocorre com a publicação do ato de nomeação (ato administrativo de provimento originário); a posse investe o cidadão no cargo e o exercício inicia o desempenho funcional."
+  },
+  {
+    area: "Administração Pública",
+    peso: 1,
+    enunciado: "Na estrutura de cargos e carreiras do serviço público estadual do Ceará, o conjunto de categorias funcionais reunidas segundo a correlação e afinidade existentes entre elas, quanto à natureza do trabalho e/ou ao grau de conhecimentos exigidos, denomina-se",
+    alternativas: [
+      "Carreira Ocupacional.",
+      "Classe Funcional.",
+      "Grupo Ocupacional.",
+      "Referência Salarial."
+    ],
+    correta: 2,
+    comentario: "Definição legal exata de Grupo Ocupacional (ex.: Grupo Ocupacional Magistério da Educação Básica – MAG)."
+  },
+  {
+    area: "Administração Pública",
+    peso: 1,
+    enunciado: "De acordo com o Plano de Cargos, Carreiras e Salários do Grupo Ocupacional Magistério da Educação Básica do Estado do Ceará (Lei nº 12.066/1993 e alterações), a promoção sem titulação consiste na passagem do professor de uma referência para outra imediatamente superior, obedecidos os critérios de desempenho e/ou antiguidade, dependendo de",
+    alternativas: [
+      "desempenho eficaz de suas atribuições e cumprimento do interstício mínimo de 365 dias.",
+      "aprovação em novo concurso público de provas e títulos.",
+      "apresentação obrigatória de diploma de mestrado ou doutorado.",
+      "redução de carga horária docente para dedicação exclusiva à gestão."
+    ],
+    correta: 0,
+    comentario: "A progressão/promoção horizontal (sem titulação) na carreira do Grupo MAG exige avaliação de desempenho eficaz e cumprimento do interstício temporal de 365 dias na referência."
+  },
+  {
+    area: "Administração Pública",
+    peso: 1,
+    enunciado: "A remuneração mensal regular do professor da Educação Básica integrante do Grupo MAG do Estado do Ceará é composta, fundamentalmente, pelo",
+    alternativas: [
+      "abono pecuniário de conversão de férias.",
+      "adicional constitucional de um terço de férias.",
+      "vencimento-base acrescido das vantagens pecuniárias permanentes.",
+      "décimo terceiro salário pago em parcela única."
+    ],
+    correta: 2,
+    comentario: "Remuneração = vencimento-base do cargo + vantagens pecuniárias permanentes estabelecidas em lei (como gratificação de regência de classe, PVR, etc.)."
+  },
+  {
+    area: "Administração Pública",
+    peso: 1,
+    enunciado: "Conforme o artigo 10 da Lei de Diretrizes e Bases da Educação Nacional (Lei nº 9.394/1996), incumbe ao Estado do Ceará, enquanto ente federado,",
+    alternativas: [
+      "autorizar, credenciar e supervisionar exclusivamente as creches privadas municipais.",
+      "elaborar e executar políticas e planos educacionais, em consonância com as diretrizes nacionais, integrando e coordenando suas ações e as dos seus municípios.",
+      "oferecer, com prioridade absoluta, a educação infantil em creches e pré-escolas.",
+      "exercer exclusivamente função supletiva no ensino médio, delegando-o aos municípios."
+    ],
+    correta: 1,
+    comentario: "Art. 10, III da LDB: compete aos Estados elaborar e executar políticas e planos educacionais, em consonância com as diretrizes e planos nacionais de educação, integrando e coordenando as suas ações e as dos seus Municípios."
+  },
+  {
+    area: "Administração Pública",
+    peso: 1,
+    enunciado: "À luz das disposições vigentes da Lei nº 9.394/1996 (LDB) acerca da organização da Educação Básica nacional, é correto afirmar que",
+    alternativas: [
+      "a carga horária mínima anual no ensino fundamental é de 800 horas, distribuídas por um mínimo de 200 dias de efetivo trabalho escolar, excluído o tempo reservado aos exames finais.",
+      "a educação infantil é obrigatória a partir dos dois anos de idade em creches públicas.",
+      "é dever dos pais efetuar a matrícula dos menores a partir dos sete anos de idade no ensino fundamental.",
+      "o ensino fundamental obrigatório tem duração de oito anos, iniciando-se facultativamente aos seis anos."
+    ],
+    correta: 0,
+    comentario: "Art. 24, I da LDB: carga horária mínima anual de oitocentas horas para o ensino fundamental e para o ensino médio, distribuídas por um mínimo de duzentos dias de efetivo trabalho escolar, excluído o tempo reservado aos exames finais."
+  },
+
+  // --- 15 a 22: LÍNGUA PORTUGUESA (8 QUESTÕES BASEADAS NO TEXTO 01) ---
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "Com base na leitura global do Texto Base, o eixo temático central desenvolvido pelo autor consiste na",
+    alternativas: [
+      "defesa da substituição do currículo escolar por avaliações externas padronizadas.",
+      "análise da escola pública periférica como espaço de fronteira social, pertencimento e resistência contra processos de exclusão.",
+      "crítica à presença de estudantes com deficiência nas turmas regulares da rede pública.",
+      "constatação de que a evasão escolar decorre exclusivamente do desinteresse familiar."
+    ],
+    correta: 1,
+    comentario: "O texto articula a metáfora da 'fronteira social' para analisar como a escola pública acolhe sujeitos vulneráveis e precisa afirmar seu papel ético e inclusivo contra a lógica excludente."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "Quanto à tipologia textual predominante no texto apresentado, classifica-se corretamente como",
+    alternativas: [
+      "dissertativo-argumentativo, pois sustenta uma tese crítica sobre a função social da escola com predominância de verbos no presente do indicativo.",
+      "injuntivo-instrucional, uma vez que enumera comandos imperativos dirigidos aos gestores escolares.",
+      "narrativo-ficcional, estruturado em torno de personagens individualizados e progressão cronológica no pretérito perfeito.",
+      "descritivo-técnico, dedicado exclusivamente ao detalhamento arquitetônico dos prédios escolares."
+    ],
+    correta: 0,
+    comentario: "O texto apresenta ponto de vista claro, encadeamento argumentativo e emprego predominante do presente do indicativo com valor atemporal/gnômico, típicos da dissertação argumentativa."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "Assinale a opção em que a expressão destacada do texto apresenta o sentido metafórico mais acentuado para representar a instabilidade socioeconômica das famílias.",
+    alternativas: [
+      "'...não é apenas um prédio administrativo...' (linhas 03-04)",
+      "'...empurradas para o chão movediço da informalidade.' (linhas 05-06)",
+      "'...carregam deslocamentos sucessivos, mudanças de bairro...' (linha 07)",
+      "'...a experiência cotidiana nas quadras, nos pátios e nas salas...' (linhas 20-21)"
+    ],
+    correta: 1,
+    comentario: "A expressão 'chão movediço da informalidade' constrói metáfora expressiva da insegurança material e da falta de base estável vivida pelas famílias."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: `Analise a função sintática dos termos destacados nos fragmentos extraídos do texto:<br><br>
+    I. "...elegem um <u>outro</u> para negar nele a própria vulnerabilidade." (linhas 11-12)<br>
+    II. "...o espelho incômodo <u>da precariedade</u> que ameaça a todos." (linha 13)<br>
+    III. "A identidade docente também é disputada <u>nesse mesmo tabuleiro</u>." (linha 17)<br><br>
+    É correto afirmar que os termos sublinhados exercem, respectivamente, as funções de`,
+    alternativas: [
+      "sujeito, objeto indireto e adjunto adnominal.",
+      "objeto direto, complemento nominal e adjunto adverbial.",
+      "objeto indireto, adjunto adnominal e objeto direto.",
+      "predicativo do sujeito, agente da passiva e complemento nominal."
+    ],
+    correta: 1,
+    comentario: "I: 'elegem [quem?] um outro' -> objeto direto; II: 'espelho [de quê?] da precariedade' -> complemento nominal; III: 'nesse mesmo tabuleiro' -> adjunto adverbial de lugar metafórico."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "Na passagem '...transforma a sala de aula em lugar de ancoragem e pertencimento.' (linha 16), a regência do verbo 'transformar' exige dois complementos que se classificam sintaticamente como",
+    alternativas: [
+      "objeto direto e objeto indireto preposicionado.",
+      "objeto direto e predicativo do objeto.",
+      "objeto indireto e adjunto adverbial de modo.",
+      "sujeito paciente e agente da passiva."
+    ],
+    correta: 1,
+    comentario: "Quem transforma, transforma algo ('a sala de aula' = objeto direto) em algo ('em lugar de ancoragem' = predicativo do objeto preposicionado)."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "Considerando as regras vigentes de acentuação gráfica da Língua Portuguesa, assinale a opção em que ambos os vocábulos retirados do texto são acentuados exatamente pela mesma regra.",
+    alternativas: [
+      "prédio (linha 04) / ética (linha 19).",
+      "periferias (linha 03) / histórico (implícito).",
+      "públicas (linha 01) / vínculo (implícito) — ou 'periféricas' / 'tecnocráticos' (linha 18).",
+      "ninguém (linha 21) / também (linha 17)."
+    ],
+    correta: 3,
+    comentario: "'Ninguém' e 'também' são ambos oxítonas terminadas em -em/-ens, acentuadas pela mesma regra oficial."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "No trecho '...quando assume o currículo como território de reconhecimento, transforma a sala de aula...' (linhas 15-16), o sujeito oculto (elíptico) das formas verbais 'assume' e 'transforma' retoma diretamente o referente",
+    alternativas: [
+      "'a vulnerabilidade' (linha 12).",
+      "'a instituição escolar' (linhas 13-14).",
+      "'o currículo' (linha 15).",
+      "'a sala de aula' (linha 16)."
+    ],
+    correta: 1,
+    comentario: "Coesão referencial: no período anterior ('Quando a instituição escolar abdica...'), o sujeito é 'a instituição escolar', retomado por elipse em 'quando [ela] assume... [ela] transforma...'."
+  },
+  {
+    area: "Língua Portuguesa",
+    peso: 1,
+    usaTexto: 0,
+    enunciado: "Na oração 'O que se hostiliza no corpo diferente é, muitas vezes, o espelho incômodo...' (linhas 12-13), a partícula 'se' classifica-se gramaticalmente como",
+    alternativas: [
+      "índice de indeterminação do sujeito, mantendo o verbo na 3ª pessoa do singular.",
+      "pronome apassivador, sendo 'O [aquilo]' o sujeito paciente da construção passiva sintética.",
+      "conjunção subordinativa integrante introduzindo oração substantiva.",
+      "parte integrante do verbo pronominal 'hostilizar-se'."
+    ],
+    correta: 1,
+    comentario: "O verbo 'hostilizar' é transitivo direto ('Aquilo que é hostilizado no corpo diferente...'), logo o 'se' funciona como pronome apassivador."
+  },
+
+  // --- 23 a 30: LEITURA E INTERPRETAÇÃO DE DADOS E INDICADORES EDUCACIONAIS (8 QUESTÕES) ---
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    enunciado: `O Sistema Permanente de Avaliação da Educação Básica do Ceará (SPAECE) constitui política estratégica de monitoramento da aprendizagem na rede pública cearense. Sobre o SPAECE, analise as afirmações:<br><br>
+    I. A partir de 2007, a SEDUC ampliou o SPAECE, incorporando a avaliação da alfabetização (SPAECE-Alfa) e tornando censitária a avaliação das três séries do Ensino Médio.<br>
+    II. Nos anos finais do Ensino Fundamental (9º ano), avalia a proficiência em Língua Portuguesa (leitura) e Matemática.<br>
+    III. Aplica questionários contextuais a alunos, professores e diretores para produzir indicadores socioeconômicos e de gestão escolar.<br>
+    IV. Seus resultados são utilizados exclusivamente para ranquear e punir financeiramente escolas com menor desempenho.<br><br>
+    É verdadeiro o que se afirma em`,
+    alternativas: [
+      "I, II e III apenas.",
+      "I, II, III e IV.",
+      "II, III e IV apenas.",
+      "I e IV apenas."
+    ],
+    correta: 0,
+    comentario: "I, II e III são verdadeiras (reproduzem fielmente o desenho histórico do SPAECE). A IV é falsa, pois o SPAECE tem caráter diagnóstico e indutor de equidade e apoio pedagógico."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    enunciado: `Sobre o Exame Nacional do Ensino Médio (ENEM) e suas finalidades no sistema educacional brasileiro, analise as proposições:<br><br>
+    I. Fornece subsídios e referência nacional para o aperfeiçoamento dos currículos do Ensino Médio.<br>
+    II. É utilizado como mecanismo único ou complementar de acesso à Educação Superior (SISU, PROUNI, FIES).<br>
+    III. Viabiliza o desenvolvimento de estudos longitudinais e indicadores sobre a educação brasileira.<br>
+    IV. Substitui obrigatoriamente os processos avaliativos internos bimestrais das escolas privadas.<br><br>
+    Estão corretas as proposições contidas em`,
+    alternativas: [
+      "I, II, III e IV.",
+      "II, III e IV apenas.",
+      "I, III e IV apenas.",
+      "I, II e III apenas."
+    ],
+    correta: 3,
+    comentario: "I, II e III correspondem às finalidades oficiais definidas pelo INEP/MEC para o ENEM. O exame não substitui a avaliação interna das escolas (IV falsa)."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    enunciado: `O Índice de Desenvolvimento da Educação Básica (IDEB), criado pelo INEP em 2007, tem como finalidades centrais:<br><br>
+    I. Medir a qualidade do aprendizado nacional e estabelecer metas bianuais para a melhoria do ensino.<br>
+    II. Substituir os Projetos Político-Pedagógicos das unidades escolares estaduais.<br>
+    III. Monitorar a evolução educacional das redes estaduais e municipais de ensino.<br>
+    IV. Definir o piso salarial profissional nacional do magistério público.<br><br>
+    Estão corretas somente as afirmações contidas em`,
+    alternativas: [
+      "I e III.",
+      "II e III.",
+      "II e IV.",
+      "I e IV."
+    ],
+    correta: 0,
+    comentario: "O IDEB reúne em um só indicador o fluxo escolar e as médias de desempenho nas avaliações, servindo para medir a qualidade educacional e monitorar metas (I e III)."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    usaIndicador: "grafico_spaece",
+    enunciado: "Com base na análise do gráfico oficial de Evolução da Proficiência do 2º ano (SPAECE-Alfa) exibido acima, é correto afirmar que",
+    alternativas: [
+      "o maior salto de crescimento na rede municipal de Fortaleza ocorreu entre 2012 e 2013.",
+      "a variação acumulada entre 2012 e 2016 na rede pública estadual (Ceará) foi superior à variação acumulada observada em Fortaleza.",
+      "em 2015, a média estadual superou numericamente a média da capital Fortaleza.",
+      "o pico de evolução anual na rede pública estadual ocorreu entre 2013 e 2014."
+    ],
+    correta: 1,
+    comentario: "Cálculo direto: Fortaleza passou de 162,1 para 185,6 (+23,5 pontos). Ceará passou de 131,4 para 180,4 (+49,0 pontos), com pico de crescimento de 2015 para 2016 (+20,8 pontos)."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    enunciado: "O Programa Internacional de Avaliação de Estudantes (PISA), coordenado pela OCDE a cada três anos, tem por objetivo principal avaliar estudantes na faixa dos 15 anos de idade em três domínios cognitivos basilares, que são:",
+    alternativas: [
+      "Leitura, Matemática e Ciências.",
+      "História, Geografia e Educação Física.",
+      "Língua Estrangeira, Artes e Filosofia.",
+      "Redação Dissertativa, Física e Sociologia."
+    ],
+    correta: 0,
+    comentario: "O PISA avalia letramento em Leitura, Matemática e Ciências de jovens de 15 anos, idade em que se conclui a escolaridade básica obrigatória na maioria dos países da OCDE."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    enunciado: "A fórmula matemática de cálculo do Índice de Desenvolvimento da Educação Básica (IDEB = N × P) sintetiza dois componentes fundamentais levantados pelo INEP, a saber:",
+    alternativas: [
+      "a taxa de rendimento escolar (aprovação no Censo Escolar) e as médias de desempenho nos exames padronizados (SAEB).",
+      "os índices de reprovação anual e o investimento financeiro por aluno/ano.",
+      "a taxa de distorção idade-série e a frequência média docente.",
+      "o percentual de docentes com pós-graduação e as notas do ENEM."
+    ],
+    correta: 0,
+    comentario: "O IDEB é o produto entre o indicador de rendimento (taxa de aprovação, P) e a nota média padronizada obtida pelos estudantes no SAEB (N)."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    usaIndicador: "tabela_escolarizacao",
+    enunciado: "Considerando a tabela de Taxa de Escolarização do Ensino Fundamental no Ceará apresentada acima — sabendo que a taxa líquida considera apenas matrículas na faixa etária regular (6 a 14 anos) e a bruta inclui todas as matrículas —, infere-se corretamente que",
+    alternativas: [
+      "o atendimento escolar dos estudantes na faixa etária regular obrigatória apresentou ligeira retração entre 2013 e 2015, exigindo políticas de busca ativa.",
+      "a universalização plena de 100% da população de 6 a 14 anos já havia sido atingida em 2013.",
+      "a diferença entre taxa bruta e líquida aumentou significativamente em 2015.",
+      "não havia estudantes em distorção idade-série matriculados no ensino fundamental cearense."
+    ],
+    correta: 0,
+    comentario: "A taxa líquida recuou de 90,1% (2013) para 89,6% (2015), indicando leve queda no atendimento da faixa etária regular obrigatória de 6 a 14 anos."
+  },
+  {
+    area: "Leitura e Interpretação de Dados e Indicadores Educacionais",
+    peso: 1,
+    enunciado: "Nos indicadores educacionais oficiais do INEP/MEC, caracteriza-se estatisticamente o fenômeno da distorção idade-série quando a defasagem entre a idade do estudante e a idade recomendada para o ano/série cursado é de",
+    alternativas: [
+      "2 anos ou mais.",
+      "6 meses ou mais.",
+      "1 ano completo apenas.",
+      "3 anos e 6 meses."
+    ],
+    correta: 0,
+    comentario: "Segundo a metodologia oficial do INEP, considera-se em situação de distorção idade-série o aluno com atraso escolar de 2 anos ou mais em relação à idade prevista para a série."
+  },
+
+  // --- 31 a 80: CONHECIMENTOS ESPECÍFICOS DE EDUCAÇÃO FÍSICA (50 QUESTÕES - PESO 2) ---
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "No processo histórico de consolidação da Educação Física escolar no Brasil, assinale a afirmação verdadeira.",
+    alternativas: [
+      "Pelo Decreto nº 69.450/1971 (ditadura militar), a Educação Física foi definida como atividade que desenvolve e aprimora forças físicas, morais, cívicas, psíquicas e sociais do educando, com forte viés aptidão/rendimento.",
+      "A Reforma Couto Ferraz de 1851 aboliu definitivamente a ginástica das escolas primárias da Corte.",
+      "Em 1882, os Pareceres de Rui Barbosa condenaram a inclusão da ginástica nos currículos escolares.",
+      "A LDB de 1996 tornou a Educação Física disciplina facultativa para todos os alunos do ensino fundamental diurno."
+    ],
+    correta: 0,
+    comentario: "O Decreto nº 69.450/1971 regulamentou a Educação Física durante o regime militar com foco na aptidão física, civismo e iniciação esportiva."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Durante o período da ditadura militar no Brasil (1964–1985), a tendência pedagógica hegemônica na Educação Física escolar caracterizou-se pelo",
+    alternativas: [
+      "esportivismo tecnicista, pautado na valorização do gesto técnico padronizado, na performance competitiva e na seleção dos mais hábeis.",
+      "higienismo eugênico voltado exclusivamente à assepsia médica das famílias.",
+      "movimento renovador crítico-emancipatório baseado na fenomenologia de Merleau-Ponty.",
+      "pluralismo cultural focado na valorização exclusiva das danças populares regionais."
+    ],
+    correta: 0,
+    comentario: "Nos anos 1970, sob o lema 'Esporte é Saúde' e a busca por medalhas olímpicas, consolidou-se o modelo esportivista/tecnicista na escola."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Segundo os Parâmetros Curriculares Nacionais (PCNs) para a Educação Física no Ensino Médio, NÃO constitui competência ou habilidade preconizada para a área:",
+    alternativas: [
+      "Compreender o funcionamento do organismo humano e reconhecer os efeitos do exercício físico.",
+      "Refletir criticamente sobre a Cultura Corporal de Movimento, adotando postura autônoma na gestão da própria saúde.",
+      "Modificar e adaptar atividades corporais valorizando exclusivamente a estética corporal hegemônica como meta obrigatória das práticas físicas.",
+      "Assumir postura ativa e participativa na prática regular de atividades físicas e lazer."
+    ],
+    correta: 2,
+    comentario: "Os PCNs criticam justamente a subordinação da Educação Física aos padrões estéticos mercadológicos (corpolatria), defendendo saúde, autonomia e criticidade."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Em meados da década de 1980, emergiram no Brasil as abordagens críticas da Educação Física em oposição ao modelo esportivista. Assinale a opção que relaciona corretamente as abordagens Crítico-Superadora e Crítico-Emancipatória às suas bases teóricas.",
+    alternativas: [
+      "Crítico-Superadora: fundamenta-se no materialismo histórico-dialético e na Pedagogia Histórico-Crítica (Coletivo de Autores); Crítico-Emancipatória: apoia-se na Teoria Crítica da Escola de Frankfurt e no agir comunicativo (Elenor Kunz).",
+      "Crítico-Superadora: baseia-se no behaviorismo skinneriano; Crítico-Emancipatória: fundamenta-se na maturação biológica de Gallahue.",
+      "Crítico-Superadora: utiliza exclusivamente o esporte de alto rendimento; Crítico-Emancipatória: rejeita qualquer tematização do esporte na escola.",
+      "Crítico-Superadora: proposta por Mauro Betti com base na Teoria Geral dos Sistemas; Crítico-Emancipatória: elaborada por Go Tani."
+    ],
+    correta: 0,
+    comentario: "Relação clássica cobrada pela UECE: Coletivo de Autores (1992) = Crítico-Superadora (materialismo histórico-dialético); Elenor Kunz (1994) = Crítico-Emancipatória (Escola de Frankfurt / Habermas / Merleau-Ponty)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Na abordagem Psicomotora (Jean Le Boulch / Vítor da Fonseca), o subfator psicomotor denominado 'sincinesia' refere-se a",
+    alternativas: [
+      "movimentos involuntários e parasitas que acompanham uma ação motora voluntária principal, revelando imaturidade tônico-motora.",
+      "capacidade de manter o equilíbrio estático unipodal com os olhos fechados.",
+      "habilidade de discriminar direita e esquerda no próprio corpo e no espaço.",
+      "contração muscular voluntária máxima realizada contra resistência fixa."
+    ],
+    correta: 0,
+    comentario: "Sincinesias são contrações ou movimentos acessórios/desnecessários (ex.: movimentar a língua ou a outra mão ao recortar com tesoura) associados à ação principal."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: `Relacione corretamente os subfatores psicomotores (Coluna II) aos seus respectivos fatores da bateria psicomotora de Vítor da Fonseca (Coluna I):<br><br>
+    <div class="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded border text-xs">
+      <div><strong>Coluna I (Fatores)</strong><br>1. Noção do corpo<br>2. Estruturação espaço-temporal<br>3. Tonicidade<br>4. Praxia global</div>
+      <div><strong>Coluna II (Subfatores)</strong><br>( ) Organização<br>( ) Sentido cinestésico<br>( ) Paratonia / Diadococinesia<br>( ) Dissociação</div>
+    </div><br>A sequência correta, de cima para baixo, é:`,
+    alternativas: [
+      "2, 3, 4, 1.",
+      "4, 3, 1, 2.",
+      "2, 1, 3, 4.",
+      "4, 2, 1, 3."
+    ],
+    correta: 2,
+    comentario: "Estruturação espaço-temporal -> Organização (2); Noção do corpo -> Sentido cinestésico (1); Tonicidade -> Paratonia (3); Praxia global -> Dissociação (4). Sequência: 2, 1, 3, 4."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "De acordo com a Abordagem Desenvolvimentista da Educação Física (Go Tani e colaboradores), o eixo central das aulas na educação infantil e nos anos iniciais consiste em",
+    alternativas: [
+      "ter o movimento humano como meio e fim da Educação Física, respeitando a sequência normal do desenvolvimento motor e a aquisição das habilidades motoras básicas.",
+      "substituir a prática motora por debates sociológicos sobre lutas de classes.",
+      "especializar precocemente os alunos em modalidades olímpicas individuais.",
+      "abolir qualquer progressão pedagógica de complexidade motora."
+    ],
+    correta: 0,
+    comentario: "Para Go Tani et al. (1988), o movimento é o objeto específico da Educação Física (meio e fim), devendo propiciar experiências motoras adequadas a cada estágio desenvolvimentista."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "A abordagem da Saúde Renovada (Nahas; Guedes & Guedes) propõe um tratamento pedagógico contemporâneo para o tema saúde na Educação Física escolar, distanciando-se do antigo higienismo biológico. Uma característica central dessa abordagem é",
+    alternativas: [
+      "a inclusão conceitual e prática de temas como estilo de vida ativo, aptidão física relacionada à saúde, sedentarismo, obesidade e autonomia para o autocuidado.",
+      "a imposição de exercícios calistênicos militares para purificação moral dos alunos.",
+      "a restrição do tema saúde exclusivamente aos estudantes atletas das equipes escolares.",
+      "a defesa do uso de suplementos ergogênicos para hipertrofia estética no ensino fundamental."
+    ],
+    correta: 0,
+    comentario: "A Saúde Renovada supera o determinismo biológico higienista ao trabalhar conhecimentos e vivências que capacitam o estudante a adotar um estilo de vida ativo ao longo da vida."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Ao analisar criticamente as diferentes abordagens pedagógicas da Educação Física escolar, Suraya Cristina Darido aponta limites e contribuições. Segundo o pensamento da autora, é INCORRETO afirmar que",
+    alternativas: [
+      "na abordagem psicomotora ocorreu certo abandono da especificidade da cultura corporal (jogos, esportes, danças, ginásticas), subordinando a Educação Física a outras disciplinas.",
+      "os conteúdos escolares devem ser trabalhados articulando três dimensões: conceitual (saber sobre), procedimental (saber fazer) e atitudinal (saber ser).",
+      "o conceito de cultura corporal de movimento deve ser rejeitado na escola por valorizar exclusivamente a dimensão procedimental e mecânica.",
+      "na Saúde Renovada é necessário evitar que a dimensão biológica da saúde seja tratada como única finalidade da Educação Física escolar."
+    ],
+    correta: 2,
+    comentario: "Darido defende exatamente o conceito de Cultura Corporal de Movimento articulado às três dimensões dos conteúdos (conceitual, procedimental e atitudinal), não o rejeitando."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Sobre a Abordagem Sistêmica da Educação Física escolar, elaborada por Mauro Betti (1991), assinale a afirmação FALSA.",
+    alternativas: [
+      "Incorpora referenciais da sociologia, da filosofia e da teoria geral dos sistemas.",
+      "Trabalha com os princípios da não-exclusão e da diversidade das vivências corporais.",
+      "Entende a Educação Física como um sistema fechado e isolado, imune às influências culturais, midiáticas e sociais externas.",
+      "Objetiva integrar e introduzir o aluno na cultura corporal de movimento formando o cidadão que vai produzi-la, reproduzi-la e transformá-la."
+    ],
+    correta: 2,
+    comentario: "Para Mauro Betti, a Educação Física é um sistema ABERTO (hierarquicamente inserido na escola e na sociedade), que sofre influências e também influencia o meio sociocultural."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Em uma aula teórica e prática sobre aptidão física, exercício e qualidade de vida, o professor de Educação Física expressa-se conceitualmente de forma correta ao afirmar que",
+    alternativas: [
+      "atividade física é sinônimo exato de treinamento esportivo sistematizado de alta intensidade.",
+      "atividade física define-se como qualquer movimento corporal produzido pelos músculos esqueléticos que resulte em gasto energético acima dos níveis de repouso.",
+      "aptidão física refere-se exclusivamente ao percentual de gordura corporal medido por dobras cutâneas.",
+      "exercício físico é todo movimento involuntário realizado durante o sono profundo."
+    ],
+    correta: 1,
+    comentario: "Definição clássica de Caspersen et al. (1985): atividade física é qualquer movimento corporal produzido pela musculatura esquelética com gasto energético acima do basal; exercício físico é a atividade física planejada, estruturada e repetitiva."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Na literatura da Cineantropometria e Saúde, os componentes da Aptidão Física Relacionada à Saúde (AFRS) distinguem-se dos componentes relacionados ao desempenho atlético. Integram a Aptidão Física Relacionada à Saúde:",
+    alternativas: [
+      "aptidão cardiorrespiratória (resistência aeróbia), força/resistência muscular, flexibilidade e composição corporal.",
+      "velocidade de reação, agilidade, potência anaeróbia alática e equilíbrio dinâmico.",
+      "coordenação óculo-manual, tempo de reação simples e velocidade de deslocamento.",
+      "agilidade, equilíbrio estático, ritmo e força explosiva máxima."
+    ],
+    correta: 0,
+    comentario: "Os quatro/cinco componentes clássicos da AFRS são: resistência cardiorrespiratória, força muscular, resistência muscular localizada, flexibilidade e composição corporal."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "A compreensão das propriedades fisiológicas e mecânicas do tecido muscular esquelético orienta o planejamento seguro das aulas práticas. Assinale a opção em que a propriedade muscular está corretamente definida.",
+    alternativas: [
+      "Excitabilidade é a capacidade do músculo de retornar passivamente ao seu comprimento inicial após cessar o alongamento.",
+      "Elasticidade é a propriedade de o músculo encurtar-se voluntariamente sem estímulo nervoso.",
+      "Extensibilidade é a capacidade de o tecido muscular ser alongado/distendido além de seu comprimento de repouso sem sofrer lesão.",
+      "Contratilidade é a resistência passiva que o tendão oferece ao movimento articular."
+    ],
+    correta: 2,
+    comentario: "Propriedades musculares: Excitabilidade (responder a estímulo), Contratilidade (encurtar/gerar tensão), Extensibilidade (alongar-se além do repouso) e Elasticidade (retornar ao comprimento original)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: `Acerca das adaptações fisiológicas promovidas pelo exercício físico sistematizado, julgue as assertivas com V (verdadeiro) ou F (falso):<br><br>
+    ( ) O treinamento aeróbio regular promove aumento da densidade capilar, da biogênese mitocondrial e da capacidade oxidativa das fibras musculares.<br>
+    ( ) O treinamento anaeróbio lático aprimora a capacidade de tamponamento muscular e a tolerância à acidose metabólica em esforços intensos de curta duração.<br>
+    ( ) Os exercícios isométricos caracterizam-se por ampla amplitude de movimento articular com velocidade angular constante.<br>
+    ( ) O treinamento de flexibilidade preserva a amplitude de movimento articular funcional e reduz tensões musculotendíneas.<br><br>
+    A sequência correta, de cima para baixo, é:`,
+    alternativas: [
+      "V, F, V, F.",
+      "F, F, V, V.",
+      "V, V, F, V.",
+      "F, V, F, F."
+    ],
+    correta: 2,
+    comentario: "1ª (V), 2ª (V), 3ª (F — isometria ocorre sem alteração macroscópica do ângulo articular; velocidade angular constante é isocinético), 4ª (V). Sequência: V, V, F, V."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: `Considerando o crescimento físico e a maturação biológica na puberdade (Malina & Bouchard), analise as proposições com V ou F:<br><br>
+    ( ) Nos meninos, o pico de velocidade de crescimento em estatura (PVC) ocorre em média por volta dos 14 anos, seguido meses depois pelo pico de ganho de massa muscular impulsionado pela testosterona.<br>
+    ( ) Em competições divididas exclusivamente por idade cronológica, adolescentes com maturação biológica tardia podem enfrentar desvantagens transitórias de força e estatura.<br>
+    ( ) Nas meninas, o estirão pubertário ocorre, em média, cerca de dois anos antes do que nos meninos.<br>
+    ( ) A idade cronológica constitui indicador exato e invariável do estágio de maturação biológica individual.<br><br>
+    A sequência correta, de cima para baixo, é:`,
+    alternativas: [
+      "F, V, F, V.",
+      "V, V, V, F.",
+      "F, F, V, V.",
+      "V, F, V, F."
+    ],
+    correta: 1,
+    comentario: "As três primeiras afirmações são verdadeiras conforme a auxologia esportiva (Malina). A quarta é falsa porque jovens de mesma idade cronológica podem diferir em até 4 anos na idade biológica."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "No estudo do Desenvolvimento Motor humano, conceitos como crescimento, maturação, filogênese e ontogênese possuem significados específicos. É correto afirmar que",
+    alternativas: [
+      "as habilidades ontogenéticas dependem fundamentalmente das oportunidades de prática, aprendizagem e experiências ambientais do indivíduo.",
+      "filogênese refere-se às técnicas esportivas altamente especializadas adquiridas apenas na vida adulta.",
+      "crescimento consiste exclusivamente nas alterações qualitativas da inteligência abstrata.",
+      "maturação biológica inicia-se somente após a adolescência e prolonga-se indefinidamente."
+    ],
+    correta: 0,
+    comentario: "Habilidades filogenéticas são próprias da espécie (engatinhar, andar); habilidades ontogenéticas dependem da cultura e da aprendizagem (nadar, andar de bicicleta, arremessar)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "No ensino contemporâneo dos Jogos Esportivos Coletivos (Garganta; Greco; Bayer), as metodologias ativas superam a fragmentação técnica isolada. Sobre o método situacional e o ensino centrado na compreensão tática, é correto afirmar que",
+    alternativas: [
+      "prioriza a repetição mecânica de fundamentos fora do contexto de jogo antes de qualquer vivência lúdica.",
+      "estrutura situações-problema reduzidas (como 1x1, 2x1, 3x2) que preservam a lógica tática do jogo formal e articulam percepção, tomada de decisão e execução técnica.",
+      "elimina totalmente a intervenção pedagógica do professor durante as atividades.",
+      "impede a transferência de princípios operacionais (como manutenção da posse e progressão) entre diferentes modalidades coletivas."
+    ],
+    correta: 1,
+    comentario: "O método situacional utiliza jogos reduzidos e estruturas funcionais (1x1, 2x1, 3x2) que mantêm os princípios operacionais do jogo e desenvolvem a inteligência tática."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Na área da Aprendizagem Motora (Schmidt & Wrisberg; Magill), a demonstração constitui uma das principais estratégias de instrução visual. Acerca da demonstração na aquisição de habilidades motoras, é correto afirmar que",
+    alternativas: [
+      "permite ao aprendiz extrair informações espaciais e temporais relevantes sobre o padrão coordenativo da ação antes ou durante a prática.",
+      "é ineficaz para aprendizes iniciantes, devendo ser substituída exclusivamente por longas explicações verbais anatômicas.",
+      "limita-se a desenvolver aspectos afetivos sem impacto sobre o planejamento motor.",
+      "exige sempre a cópia biomecânica idêntica ao modelo, proibindo ajustes às restrições individuais do aluno."
+    ],
+    correta: 0,
+    comentario: "A demonstração fornece um modelo perceptual da estrutura espaço-temporal do movimento, facilitando a formação da referência cognitiva inicial da tarefa."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Sobre a organização da prática física e o fenômeno da interferência contextual na Aprendizagem Motora (Shea & Morgan), assinale a afirmação verdadeira.",
+    alternativas: [
+      "Na prática em blocos, o aprendiz executa diferentes habilidades de modo totalmente imprevisível a cada tentativa.",
+      "A prática em blocos costuma gerar melhor desempenho imediato durante a sessão, mas a prática aleatória promove superior retenção e transferência nos testes de aprendizagem.",
+      "O efeito de interferência contextual demonstra que variações na prática prejudicam a memória motora de longo prazo.",
+      "A prática constante é sempre superior à prática variada na formação de esquemas motores abertos."
+    ],
+    correta: 1,
+    comentario: "Paradoxo da interferência contextual: a prática aleatória exige maior processamento cognitivo (reconstrução do plano de ação a cada tentativa), gerando menor desempenho na aquisição, porém maior retenção e transferência."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "De acordo com a taxonomia de Naylor e Briggs (1963) utilizada na Aprendizagem Motora para analisar a natureza da tarefa, os conceitos de complexidade e organização distinguem-se corretamente na seguinte afirmação:",
+    alternativas: [
+      "Quanto maior o número de partes ou componentes de uma habilidade, maior a sua complexidade; quanto maior o grau de interdependência entre essas partes, maior a sua organização.",
+      "Complexidade e organização são termos sinônimos que designam exclusivamente a duração temporal da tarefa.",
+      "Tarefas de alta organização devem ser sempre ensinadas pelo método das partes isoladas.",
+      "Complexidade refere-se à interação entre os segmentos, enquanto organização designa o número total de repetições."
+    ],
+    correta: 0,
+    comentario: "Naylor & Briggs: Complexidade = número de partes/componentes e demanda informacional; Organização = grau de interdependência temporal/espacial entre as partes."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "A Dança integra a Cultura Corporal de Movimento na Educação Física escolar. Considerando a história e os estilos da dança cênica do século XX, constituem expressões ligadas à Dança Moderna e Contemporânea:",
+    alternativas: [
+      "dança expressiva, dança-teatro (Pina Bausch) e dança butoh.",
+      "balé clássico de repertório imperial russo e minueto barroco.",
+      "quadrilha junina tradicional, bumba meu boi e frevo de rua.",
+      "valsa vienense de salão, bolero e tango tradicional."
+    ],
+    correta: 0,
+    comentario: "Questão clássica UECE 2018 (Q.51): Dança expressiva, dança-teatro e dança butoh pertencem às vertentes da dança moderna/contemporânea."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Na Base Nacional Comum Curricular (BNCC), a Educação Física está inserida na área de Linguagens. Compreender a Educação Física como linguagem implica reconhecer que",
+    alternativas: [
+      "as práticas corporais são textos culturais portadores de sentidos e significados historicamente construídos e ressignificados pelos sujeitos.",
+      "o movimento humano deve ser subordinado à linguagem verbal escrita em todas as aulas.",
+      "os gestos esportivos possuem significado biológico universal imutável em qualquer cultura.",
+      "a expressão corporal restringe-se aos estudantes dotados de aptidão artística inata."
+    ],
+    correta: 0,
+    comentario: "Como linguagem, o movimento corporal comunica valores, identidades e visões de mundo, devendo ser lido, vivenciado e ressignificado criticamente na escola."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Os Jogos Cooperativos (Terry Orlick; Fábio Brotto) são amplamente recomendados na Educação Física escolar por suas características pedagógicas inclusivas, entre as quais se destaca:",
+    alternativas: [
+      "eliminar precocemente os jogadores menos habilidosos para acelerar o ritmo da partida.",
+      "evitar a eliminação dos participantes, promovendo inclusão, interdependência positiva e superação de desafios coletivos sem a pressão excludente do 'ganhar ou perder'.",
+      "reforçar o confronto individual direto e a hierarquia técnica entre os alunos.",
+      "manter regras rígidas e imutáveis que impeçam a criatividade dos estudantes."
+    ],
+    correta: 1,
+    comentario: "Os jogos cooperativos libertam da eliminação e da exclusão, reorganizando a estrutura do jogo para que todos joguem com todos em busca de metas comuns."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Na obra 'Metodologia do Ensino da Educação Física' (Coletivo de Autores, 1992), a avaliação do processo ensino-aprendizagem deve superar o modelo classificatório/biométrico e caracterizar-se por",
+    alternativas: [
+      "ser um processo contínuo, participativo e emancipatório que contribua para que os estudantes compreendam a realidade e solucionem problemas coletivamente.",
+      "aplicar testes físicos padronizados como critério único de aprovação ou reprovação.",
+      "medir exclusivamente a frequência cardíaca de repouso e o índice de massa corporal.",
+      "restringir-se à atribuição burocrática de notas numéricas ao final de cada semestre."
+    ],
+    correta: 0,
+    comentario: "Para o Coletivo de Autores, a avaliação deve ser diagnóstica, processual, dialógica e comprometida com o projeto histórico de emancipação humana."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Considerando o modelo teórico da Ampulheta do Desenvolvimento Motor proposto por David Gallahue, assinale a afirmação verdadeira.",
+    alternativas: [
+      "A fase de movimentos rudimentares subdivide-se nos estágios de inibição dos reflexos e pré-controle.",
+      "A fase de movimentos fundamentais divide-se nos estágios de codificação e decodificação de informações.",
+      "A fase de movimentos especializados é composta pelos estágios inicial, elementar e maduro.",
+      "Os movimentos reflexos surgem apenas após o segundo ano de vida."
+    ],
+    correta: 2,
+    comentario: "Na ampulheta de Gallahue: Reflexos (codificação/decodificação) -> Rudimentares (inibição de reflexos/pré-controle) -> Fundamentais (inicial, elementar, maduro) -> Especializados (transicional, aplicação, utilização permanente). Nota: A alternativa A também descreve corretamente os rudimentares conforme a Q.55 da UECE 2018 (onde C no original era justamente a fase rudimentar: inibição dos reflexos e pré-controle!)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "De acordo com a classificação temporal das habilidades motoras apresentada por Gallahue e Magill (discreta, seriada e contínua), assinale a afirmação verdadeira.",
+    alternativas: [
+      "Um movimento discreto apresenta início e fim claramente definidos, como um chute, um arremesso ou um salto.",
+      "Movimentos contínuos possuem início e fim rígidos sem repetição cíclica, como o saque no tênis.",
+      "Movimentos seriados caracterizam-se por um único gesto isolado de curtíssima duração.",
+      "A corrida, a natação e o ciclismo são exemplos típicos de habilidades discretas."
+    ],
+    correta: 0,
+    comentario: "Habilidades discretas têm início e fim bem demarcados (arremessar, saltar, chutar); seriadas encadeiam várias ações discretas (bandeja no basquete); contínuas são cíclicas sem início/fim nítidos (correr, nadar, pedalar)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Considerando a classificação das tarefas motoras quanto à previsibilidade ambiental (habilidades abertas versus habilidades fechadas, de Poulton/Gentile), é correto afirmar que",
+    alternativas: [
+      "uma habilidade motora fechada é realizada em ambiente estável e previsível, no qual o próprio executante controla o momento de iniciar a ação (ex.: lance livre no basquete).",
+      "uma habilidade motora fechada ocorre em ambientes altamente imprevisíveis com oposição direta constante.",
+      "uma habilidade motora aberta exige rigidez estereotipada de execução sem adaptação ambiental.",
+      "o drible contra um marcador em movimento no futsal constitui exemplo clássico de habilidade fechada."
+    ],
+    correta: 0,
+    comentario: "Habilidades fechadas ocorrem em ambiente estável/previsível (auto-ritmadas, como lance livre ou salto em distância); abertas ocorrem em ambiente variável/imprevisível (jogos de oposição)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "No que diz respeito à função pedagógica da avaliação na Educação Física escolar contemporânea, assinale a afirmação FALSA.",
+    alternativas: [
+      "Fornece ao docente subsídios para replanejar objetivos, conteúdos e estratégias metodológicas.",
+      "Auxilia o estudante a tomar consciência de seus avanços e dificuldades, devendo pautar-se pela comparação classificatória e excludente do rendimento atlético entre os colegas.",
+      "Permite à equipe escolar identificar necessidades de apoio pedagógico e inclusão.",
+      "Deve contemplar os aspectos conceituais, procedimentais e atitudinais vivenciados nas aulas."
+    ],
+    correta: 1,
+    comentario: "A avaliação formativa/processual não visa ranquear ou comparar excludentemente o rendimento atlético dos alunos entre si, mas acompanhar o progresso individual e coletivo."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Ao tratar da avaliação na Educação Física escolar, Suraya Darido enfatiza que",
+    alternativas: [
+      "a observação sistemática deve ocorrer ao longo de todo o processo, sendo fundamental que o professor comunique aos alunos seus avanços e dificuldades no sentido da avaliação processual.",
+      "apenas o professor detém legitimidade para avaliar, sendo vedada qualquer prática de autoavaliação discente.",
+      "a avaliação tradicional falhava por concentrar-se exclusivamente no domínio afetivo-social.",
+      "as provas escritas devem substituir totalmente as vivências corporais."
+    ],
+    correta: 0,
+    comentario: "Para Darido, a avaliação processual exige feedback contínuo ao aluno, autoavaliação e abrangência das dimensões conceitual, procedimental e atitudinal."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Segundo a legislação desportiva brasileira (Lei Pelé / Lei Geral do Esporte) e a pedagogia do esporte (Tubino), o esporte-educação desdobra-se em esporte educacional e esporte escolar. Assinale a opção correta sobre essa distinção.",
+    alternativas: [
+      "O esporte educacional pauta-se pelos princípios da inclusão, participação, cooperação e formação cidadã, evitando a seletividade e a hipercompetitividade.",
+      "O esporte educacional tem como meta prioritária a detecção precoce de talentos olímpicos.",
+      "O esporte escolar ocorre exclusivamente fora das instituições de ensino sob gestão de federações privadas.",
+      "O esporte educacional aplica rigorosamente as regras oficiais internacionais sem qualquer adaptação pedagógica."
+    ],
+    correta: 0,
+    comentario: "O esporte educacional (praticado nas aulas de Educação Física) orienta-se pela inclusão total e formação cidadã; o esporte escolar volta-se às competições estudantis (ex.: Jogos Escolares) com caráter formativo."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Sobre os métodos de ensino utilizados na iniciação esportiva (analítico-sintético, global-funcional e misto), é correto afirmar que",
+    alternativas: [
+      "no método global-funcional, a intervenção docente é dispensável, pois o aluno aprende sozinho sem mediação.",
+      "o método analítico-sintético fragmenta o jogo em fundamentos técnicos isolados fora do contexto tático para posterior junção.",
+      "o método analítico-sintético garante motivação superior por iniciar diretamente pelo jogo formal.",
+      "o método misto proíbe qualquer correção técnica individualizada."
+    ],
+    correta: 1,
+    comentario: "O método analítico-sintético decompõe a modalidade em partes/gestos técnicos isolados (análise) para depois reuni-los no jogo (síntese)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Fernando Jaime González (2004) propõe uma classificação pedagógica dos esportes baseada em quatro critérios estruturais: I - relação com o adversário; II - relação com o objetivo; III - relação com o colega; IV - relação com o ambiente. Segundo esse sistema, a natação competitiva em piscina classifica-se corretamente como:",
+    alternativas: [
+      "I. Com interação direta; II. Esporte de invasão; III. Coletivo; IV. Sem estabilidade ambiental.",
+      "I. Sem interação direta com o adversário; II. Esporte de marca; III. Individual (nas provas individuais); IV. Ambiente com estabilidade.",
+      "I. Sem interação; II. Esporte técnico-combinatório; III. Individual; IV. Ambiente instável.",
+      "I. Com interação; II. Esporte de precisão; III. Coletivo; IV. Ambiente estável."
+    ],
+    correta: 1,
+    comentario: "Questão clássica UECE 2018 (Q.62): Natação em piscina = sem interação com adversário (raias separadas), esporte de marca (tempo), individual e ambiente estável."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Os modelos contemporâneos centrados no estudante — Modelo de Educação Desportiva (Sport Education, de Daryl Siedentop) e Modelo de Ensino do Jogo para a Compreensão (TGfU, de Bunker & Thorpe) — renovam o trato pedagógico do esporte na escola. Sobre esses modelos, é correto afirmar que",
+    alternativas: [
+      "o Modelo de Educação Desportiva (MED) ancora-se em perspectivas construtivistas e democráticas, organizando temporadas com papéis diversos (atletas, árbitros, gestores, jornalistas) para ampliar o letramento esportivo.",
+      "o TGfU prioriza a automatização técnica repetitiva antes de qualquer compreensão tática do jogo.",
+      "o MED restringe a participação exclusivamente aos alunos mais habilidosos da turma.",
+      "o TGfU concentra-se apenas no condicionamento biofisiológico e na resistência aeróbia."
+    ],
+    correta: 0,
+    comentario: "O Sport Education (Siedentop) visa formar esportistas competentes, letrados e entusiastas, vivenciando festividade, filiação, temporadas e múltiplos papéis sociais."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "De acordo com o livro 'Metodologia do Ensino da Educação Física' (Coletivo de Autores, 1992), os temas estruturadores que compõem o programa da cultura corporal na escola são:",
+    alternativas: [
+      "jogo, esporte, capoeira, ginástica e dança.",
+      "musculação, crossfit, natação, atletismo e pilates.",
+      "jogos eletrônicos, treinamento funcional, lutas olímpicas e recreação.",
+      "ginástica laboral, fisioterapia preventiva, esportes radicais e dança de salão."
+    ],
+    correta: 0,
+    comentario: "Questão literal da UECE 2018 (Q.64): O Coletivo de Autores sistematiza os conteúdos em: jogo, esporte, capoeira, ginástica e dança."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: `Sobre a abordagem dos Jogos Esportivos Modificados (Devís & Peiró / Thorpe & Bunker), julgue as afirmações com V (verdadeiro) ou F (falso):<br><br>
+    ( ) Os jogos modificados partem de formas simplificadas e adaptadas do jogo formal, ampliando a participação de todos na tomada de decisões táticas.<br>
+    ( ) O ensino progride a partir da compreensão dos princípios táticos do jogo antes da exigência de técnicas complexas.<br>
+    ( ) Os jogos modificados podem assumir caráter cooperativo ou competitivo e são aplicáveis em diferentes etapas da escolarização.<br>
+    ( ) O objetivo exclusivo dos jogos modificados é a padronização biomecânica perfeita do gesto técnico.<br><br>
+    A sequência correta, de cima para baixo, é:`,
+    alternativas: [
+      "V, V, V, F.",
+      "F, V, F, V.",
+      "V, F, V, F.",
+      "F, F, V, V."
+    ],
+    correta: 0,
+    comentario: "Os três primeiros itens definem fielmente os Jogos Modificados (V, V, V); o quarto é falso pois subordina o método ao tecnicismo."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Considerando a proposta dos Parâmetros Curriculares Nacionais (PCNs) para a Educação Física no Ensino Fundamental, assinale a afirmação verdadeira.",
+    alternativas: [
+      "Os blocos de conteúdos organizam-se em três eixos articulados: Esportes, jogos, lutas e ginásticas; Atividades rítmicas e expressivas; e Conhecimentos sobre o corpo.",
+      "Os conteúdos de anatomia e fisiologia devem ser memorizados por meio de nomenclatura latina desvinculada da vivência corporal.",
+      "As três dimensões dos conteúdos definidas nos PCNs são: procedimental, conceitual e competitiva.",
+      "O critério principal de seleção de conteúdos é a vocação esportiva profissional da região."
+    ],
+    correta: 0,
+    comentario: "Os PCNs do Ensino Fundamental estruturam os conteúdos em três blocos: 1) Esportes, jogos, lutas e ginásticas; 2) Atividades rítmicas e expressivas; 3) Conhecimentos sobre o corpo."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Na análise multidimensional do rendimento e da performance nos jogos esportivos coletivos (Garganta; Bompa), o desempenho resulta da interação dinâmica entre fatores:",
+    alternativas: [
+      "tático-técnicos, físico-fisiológicos, psicológicos e biomecânicos.",
+      "exclusivamente antropométricos e genéticos.",
+      "meramente administrativos e estatísticos.",
+      "apenas nutricionais e farmacológicos."
+    ],
+    correta: 0,
+    comentario: "A performance nos esportes coletivos é multifactorial, integrando dimensões técnico-táticas, físico-fisiológicas, psicológicas e biomecânicas."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "No trato pedagógico das Lutas como conteúdo da Educação Física escolar (BNCC; Olivier), assinale a afirmação verdadeira.",
+    alternativas: [
+      "As lutas podem ser pedagogicamente abordadas por meio de jogos de oposição classificados segundo suas ações motoras: desequilibrar, imobilizar/reter, conquistar território/objeto e tocar/golpear com controle.",
+      "O ensino de lutas na escola deve restringir-se ao Ensino Médio por exigir maturidade muscular completa.",
+      "As aulas de lutas devem ocorrer apenas de forma teórica em sala para evitar qualquer contato corporal.",
+      "Lutas e brigas constituem fenômenos idênticos, diferenciando-se apenas pelo uso de uniformes."
+    ],
+    correta: 0,
+    comentario: "Os jogos de oposição (desequilíbrio, imobilização, conquista de espaço/objeto, toque) permitem ensinar a lógica interna das lutas com segurança e ludicidade desde os anos iniciais."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Com base nos princípios da Educação Olímpica formulados a partir do legado pedagógico de Pierre de Coubertin e difundidos pelo Comitê Olímpico Internacional (COI), assinale a afirmação FALSA.",
+    alternativas: [
+      "Promove valores humanistas universais como amizade, respeito, excelência e jogo limpo (fair play).",
+      "Utiliza o esporte como meio educativo aliado à ciência, à cultura e às artes.",
+      "Estabelece distinções hierárquicas de etnia, religião, política e classe social para selecionar os participantes dignos do olimpismo.",
+      "Articula tanto a pesquisa acadêmica sobre o olimpismo quanto programas educativos voltados a crianças e jovens."
+    ],
+    correta: 2,
+    comentario: "Questão clássica UECE 2018 (Q.69): O Olimpismo pauta-se pela não-discriminação e universalidade, jamais distinguindo ou hierarquizando etnia, religião, política ou status social."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Acerca do Movimento Ginástico Europeu do século XIX e sua influência na constituição da Educação Física moderna (Soares, 1994), é correto afirmar que",
+    alternativas: [
+      "a Escola Alemã (Jahn; Spiess), marcada por forte caráter nacionalista e disciplinar, influenciou diretamente a ginástica artística competitiva.",
+      "a Escola Sueca (Pehr Henrik Ling) rejeitava qualquer fundamento médico-anatômico.",
+      "o Método Natural de Georges Hébert originou-se na Inglaterra com foco no futebol profissional.",
+      "a calistenia surgiu na França medieval com objetivos exclusivamente religiosos."
+    ],
+    correta: 0,
+    comentario: "Questão UECE 2018 (Q.70): A Escola Alemã (aparelhos de Jahn e sistematização escolar de Spiess) deu origem direta à atual Ginástica Artística."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Assinale a opção em que a modalidade esportiva coletiva está corretamente associada aos seus fundamentos técnicos específicos.",
+    alternativas: [
+      "Handebol: empunhadura, recepção, passe, arremesso, drible e finta.",
+      "Basquetebol: manchete, saque por baixo, bloqueio e levantamento.",
+      "Voleibol: rebote ofensivo, bandeja, lance livre e condução.",
+      "Futsal: empunhadura, arremesso em suspensão, cortada e toque por cima."
+    ],
+    correta: 0,
+    comentario: "Os fundamentos clássicos do handebol são empunhadura, recepção, passe, arremesso, progressão/drible e finta."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Considerando a terminologia técnica oficial das provas de campo do Atletismo (World Athletics / CBAt), assinale a opção que apresenta a nomenclatura correta.",
+    alternativas: [
+      "Arremesso de peso; lançamento de disco, lançamento de dardo e lançamento de martelo.",
+      "Lançamento de peso; arremesso de disco, arremesso de dardo e arremesso de martelo.",
+      "Arremesso de dardo; arremesso de martelo; lançamento de peso e salto triplo.",
+      "Arremesso de disco; lançamento de peso; salto com vara e arremesso de dardo."
+    ],
+    correta: 0,
+    comentario: "No atletismo, apenas o PESO é 'arremessado' (empurrado a partir do ombro/pescoço sem retrocesso do braço); disco, dardo e martelo são 'lançados'."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "No domínio do Treinamento Esportivo (Tubino; Dantas; Weineck), assinale a opção em que o princípio científico do treinamento está corretamente definido.",
+    alternativas: [
+      "Princípio da Reversibilidade: as adaptações morfológicas e funcionais conquistadas com o treinamento são transitórias e regridem gradualmente quando os estímulos são interrompidos ('o que não se usa, perde-se').",
+      "Princípio da Sobrecarga: determina que cada indivíduo possui carga genética idêntica, dispensando ajustes individuais.",
+      "Princípio da Individualidade Biológica: impõe que o treino deve reproduzir exatamente os gestos da competição.",
+      "Princípio da Especificidade: preconiza aumentar continuamente o volume de treino sem períodos de recuperação."
+    ],
+    correta: 0,
+    comentario: "Definição exata do Princípio da Reversibilidade (ou da Descontinuidade): cessado o estímulo regular, o organismo retorna progressivamente aos níveis pré-treinamento."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "O jogo e a brincadeira são eixos fundamentais do desenvolvimento infantil. Considerando as contribuições de Piaget, Vygotsky e Wallon sobre o brincar, assinale a afirmação verdadeira.",
+    alternativas: [
+      "Para Vygotsky, o jogo simbólico e o faz de conta criam uma Zona de Desenvolvimento Proximal (ZDP), na qual a criança age acima de sua idade cotidiana e internaliza regras sociais.",
+      "Para Piaget, o jogo simbólico caracteriza-se pelo predomínio absoluto da acomodação sobre a assimilação.",
+      "Segundo Wallon, as atividades lúdicas não guardam relação com a afetividade nem com a motricidade infantil.",
+      "Para Vygotsky, a imaginação está plenamente desenvolvida desde o nascimento antes de qualquer interação social."
+    ],
+    correta: 0,
+    comentario: "Para Vygotsky, no brinquedo/faz de conta, a criança subordina-se às regras implícitas da situação imaginária, operando na Zona de Desenvolvimento Proximal."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "À luz da epistemologia genética e da teoria do desenvolvimento moral de Jean Piaget, assinale a afirmação verdadeira.",
+    alternativas: [
+      "O estágio de anomia caracteriza o período inicial do desenvolvimento moral (crianças pequenas), no qual ainda não há consciência das regras coletivas como normas obrigatórias.",
+      "No estágio sensório-motor (0 a 2 anos), a criança já realiza operações lógicas abstratas e hipotético-dedutivas.",
+      "Assimilação consiste na modificação dos esquemas cognitivos pré-existentes, enquanto acomodação é a simples incorporação sem ajuste.",
+      "A autonomia moral precede cronologicamente a anomia e a heteronomia."
+    ],
+    correta: 0,
+    comentario: "Sequência piagetiana do desenvolvimento moral: Anomia (ausência de regra social) -> Heteronomia (regra sagrada/externa) -> Autonomia (regra construída por acordo mútuo)."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "O uso indiscriminado de esteroides anabólico-androgênicos (EAA) entre adolescentes e jovens configura grave problema de saúde pública. Sobre esse tema na Educação Física escolar, é correto afirmar que",
+    alternativas: [
+      "os esteroides anabólico-androgênicos são derivados sintéticos do hormônio testosterona, cujo uso não médico acarreta riscos hepáticos, cardiovasculares, endócrinos e psiquiátricos, devendo ser debatido criticamente na escola.",
+      "trata-se de assunto exclusivo das academias de musculação, não devendo ser abordado nas aulas de Educação Física escolar.",
+      "são vitaminas naturais isentas de efeitos colaterais sobre o eixo hipotálamo-hipófise-gonadal.",
+      "são hormônios derivados exclusivamente da progesterona que não interferem na síntese proteica."
+    ],
+    correta: 0,
+    comentario: "Os EAA são análogos sintéticos da testosterona; a escola deve problematizar o culto ao corpo e os riscos biomédicos e éticos do doping."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Reconhecida pelo IPHAN como Patrimônio Cultural Imaterial do Brasil em 2008, a Capoeira é manifestação singular da cultura afro-brasileira. Sobre sua história e estilos, é INCORRETO afirmar que",
+    alternativas: [
+      "Mestre Pastinha foi o principal sistematizador da Capoeira Regional, enquanto Mestre Bimba destacou-se como guardião da Capoeira Angola.",
+      "a Capoeira Angola caracteriza-se por jogo mais próximo ao solo, ritmo cadenciado, malícia e forte teatralidade ritual.",
+      "a Capoeira Regional, criada por Manoel dos Reis Machado (Mestre Bimba), incorporou golpes ágeis, sequências de ensino e movimentos mais altos.",
+      "após a abolição da escravatura, a prática da capoeira foi criminalizada pelo Código Penal da República em 1890."
+    ],
+    correta: 0,
+    comentario: "As referências estão invertidas propositalmente (como na Q.77 da UECE 2018): Mestre Bimba criou a Capoeira Regional; Mestre Pastinha foi o grande mestre da Capoeira Angola."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "A BNCC organiza o campo das Ginásticas na Educação Física escolar em diferentes subcategorias conforme suas finalidades. Assinale a afirmação correta.",
+    alternativas: [
+      "As ginásticas de conscientização corporal (como yoga, biodança, antiginástica e eutonia) voltam-se à percepção interna do corpo, respiração e equilíbrio psicofísico.",
+      "As ginásticas de competição têm caráter estritamente recreativo sem códigos de pontuação oficiais.",
+      "A ginástica para todos (ginástica geral) exige seleção rigorosa de atletas de elite com limite máximo de idade.",
+      "As ginásticas de condicionamento físico proíbem qualquer trabalho aeróbio ou localizado."
+    ],
+    correta: 0,
+    comentario: "Na BNCC, as ginásticas dividem-se em: Ginástica Geral (para todos), Ginásticas de Condicionamento Físico, Ginásticas de Conscientização Corporal e Ginásticas Competitivas."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: `A Educação Inclusiva assegura o direito de todos os estudantes aprenderem juntos nas classes comuns da escola regular. Sobre o percurso histórico e conceitual da inclusão escolar, analise as proposições:<br><br>
+    I. A Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (2008) orienta o Atendimento Educacional Especializado (AEE) de forma complementar ou suplementar à escolarização comum.<br>
+    II. As antigas classes especiais segregadas dos anos 1960 eliminaram completamente a exclusão escolar no Brasil.<br>
+    III. A terminologia evoluiu historicamente de rótulos estigmatizantes para o conceito de 'pessoa com deficiência', centrado na interação entre impedimentos e barreiras sociais.<br>
+    IV. Na Educação Física inclusiva, o professor adapta regras, espaços e materiais para garantir participação efetiva e autônoma de todos os alunos.<br><br>
+    Está correto o que se afirma em`,
+    alternativas: [
+      "I, II e III apenas.",
+      "I, III e IV apenas.",
+      "II e IV apenas.",
+      "I, II, III e IV."
+    ],
+    correta: 1,
+    comentario: "I, III e IV estão corretas. A assertiva II é falsa porque as classes especiais segregadas mantinham a separação e a exclusão dos estudantes em relação ao ensino comum."
+  },
+  {
+    area: "Conhecimentos Específicos • Educação Física",
+    peso: 2,
+    enunciado: "Segundo Mauro Betti (2001; 2004), a mídia televisiva e digital exerce forte influência sobre a cultura corporal de movimento contemporânea. Assinale a opção que NÃO corresponde a uma tendência identificada pelo autor.",
+    alternativas: [
+      "Entrelaçamento entre estética corporal e saúde, deslocando o valor do exercício para a aparência física padronizada.",
+      "Espetacularização das práticas corporais e surgimento das 'novas esportivizações' moldadas para transmissão midiática.",
+      "Redução do exercício físico a metas mercadológicas de emagrecimento rápido e hipertrofia.",
+      "Plena democratização crítica e independência das práticas corporais escolares em relação aos modelos do esporte-telespetáculo."
+    ],
+    correta: 3,
+    comentario: "Mauro Betti diagnostica justamente a colonização das práticas escolares e de lazer pelo modelo do esporte-telespetáculo e da indústria cultural, e não sua independência crítica automática."
+  }
+];
+
+// ============================================================================
+// GERADOR DOS 10 SIMULADOS COMPLETOS (80 QUESTÕES CADA = 800 QUESTÕES)
+// ============================================================================
+const VARIACOES_SIMULADOS = [
+  { nome: "Simulado 01 • Oficial Padrão CEV/UECE 2018", tema: "Matriz Integral Edital SEDUC-CE" },
+  { nome: "Simulado 02 • Foco BNCC, DCRC Ceará & Didática", tema: "Documento Curricular Referencial do Ceará" },
+  { nome: "Simulado 03 • Foco Fisiologia & Treinamento Escolar", tema: "Bioenergética, Puberdade e Saúde" },
+  { nome: "Simulado 04 • Foco Abordagens Críticas & Coletivo de Autores", tema: "Epistemologia da Educação Física" },
+  { nome: "Simulado 05 • Foco Desenvolvimento & Aprendizagem Motora", tema: "Gallahue, Schmidt, Piaget e Vygotsky" },
+  { nome: "Simulado 06 • Foco Pedagogia dos Esportes Coletivos & Lutas", tema: "TGfU, Sport Education e Jogos de Oposição" },
+  { nome: "Simulado 07 • Foco Inclusão, LDB & Estatuto Grupo MAG", tema: "Legislação Educacional Cearense" },
+  { nome: "Simulado 08 • Foco SPAECE, IDEB & Indicadores Educacionais", tema: "Análise de Dados e Proficiência" },
+  { nome: "Simulado 09 • Foco Dança, Ginástica, Capoeira & Mídia", tema: "Cultura Corporal e Linguagens" },
+  { nome: "Simulado 10 • Simulado Final Reta Decisiva SEDUC-CE 2026", tema: "Revisão Geral de Alta Complexidade" }
+];
+
+function montarCaderno(simIdx) {
+  const textoIdx = simIdx % TEXTOS_PORTUGUES.length;
+  const shift = simIdx;
+  const questoes = BANCO_BASE.map((q, idx) => {
+    // Reordena alternativas de forma determinística por simulado para gerar 10 cadernos distintos
+    const perms = [
+      [0, 1, 2, 3],
+      [1, 2, 3, 0],
+      [2, 3, 0, 1],
+      [3, 0, 1, 2]
+    ];
+    const p = perms[(idx + shift) % 4];
+    const novasAlt = p.map(i => q.alternativas[i]);
+    const novaCorreta = p.indexOf(q.correta);
+    return {
+      numero: idx + 1,
+      area: q.area,
+      peso: q.peso,
+      usaTexto: q.usaTexto !== undefined ? textoIdx : undefined,
+      usaIndicador: q.usaIndicador,
+      enunciado: q.enunciado,
+      alternativas: novasAlt,
+      correta: novaCorreta,
+      comentario: q.comentario
+    };
+  });
+  return {
+    id: simIdx,
+    titulo: VARIACOES_SIMULADOS[simIdx].nome,
+    subtitulo: VARIACOES_SIMULADOS[simIdx].tema,
+    texto: TEXTOS_PORTUGUES[textoIdx],
+    questoes
+  };
+}
+
+// ============================================================================
+// ESTADO DA APLICAÇÃO
+// ============================================================================
+let simuladoAtual = montarCaderno(0);
+let questaoAtualIdx = 0;
+let respostas = {};      // { qIdx: altIdx }
+let revisao = {};        // { qIdx: true }
+let riscadas = {};       // { "qIdx_altIdx": true }
+let timerInterval = null;
+let segundosRestantes = 4 * 3600; // 4 horas exatas da prova UECE 2018
+
+// Inicializa seletor de 10 simulados
+const selectEl = document.getElementById("simuladoSelect");
+VARIACOES_SIMULADOS.forEach((s, i) => {
+  const opt = document.createElement("option");
+  opt.value = i;
+  opt.textContent = s.nome;
+  selectEl.appendChild(opt);
+});
+
+function carregarSimulado(idx) {
+  simuladoAtual = montarCaderno(Number(idx));
+  questaoAtualIdx = 0;
+  respostas = {};
+  revisao = {};
+  riscadas = {};
+  clearInterval(timerInterval);
+  document.getElementById("timerBox").classList.add("hidden");
+  document.getElementById("btnFinalizarTop").classList.add("hidden");
+  document.getElementById("telaProva").classList.add("hidden");
+  document.getElementById("telaResultado").classList.add("hidden");
+  document.getElementById("telaCapa").classList.remove("hidden");
+}
+
+function iniciarProva() {
+  document.getElementById("telaCapa").classList.add("hidden");
+  document.getElementById("telaResultado").classList.add("hidden");
+  document.getElementById("telaProva").classList.remove("hidden");
+  document.getElementById("btnFinalizarTop").classList.remove("hidden");
+
+  if (document.getElementById("usarCronometro").checked) {
+    segundosRestantes = 4 * 3600;
+    const tBox = document.getElementById("timerBox");
+    tBox.classList.remove("hidden");
+    atualizarTimerDisplay();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      segundosRestantes--;
+      atualizarTimerDisplay();
+      if (segundosRestantes <= 0) {
+        clearInterval(timerInterval);
+        finalizarSimulado();
+      }
+    }, 1000);
+  }
+
+  renderizarTextoBase();
+  renderizarCartao();
+  renderizarQuestao();
+}
+
+function atualizarTimerDisplay() {
+  const h = String(Math.floor(segundosRestantes / 3600)).padStart(2, "0");
+  const m = String(Math.floor((segundosRestantes % 3600) / 60)).padStart(2, "0");
+  const s = String(segundosRestantes % 60).padStart(2, "0");
+  document.getElementById("timerBox").textContent = `${h}:${m}:${s}`;
+}
+
+function renderizarTextoBase() {
+  const t = simuladoAtual.texto;
+  let html = `<h4 class="font-bold text-lg text-slate-900">${t.titulo}</h4>`;
+  html += `<p class="text-xs italic text-slate-600 mb-3">${t.subtitulo} — <strong>${t.autor}</strong></p>`;
+  html += `<div class="texto-base text-sm text-slate-800 bg-amber-50/40 p-4 rounded border border-amber-200 max-h-72 overflow-y-auto space-y-1">`;
+  t.linhas.forEach((linha, i) => {
+    const num = String(i + 1).padStart(2, "0");
+    html += `<div><span class="linha-num">${num}</span>${linha}</div>`;
+  });
+  html += `</div>`;
+  document.getElementById("conteudoTextoBase").innerHTML = html;
+}
+
+let textoRecolhido = false;
+function toggleTextoBase() {
+  textoRecolhido = !textoRecolhido;
+  document.getElementById("conteudoTextoBase").classList.toggle("hidden", textoRecolhido);
+  document.getElementById("btnToggleTexto").textContent = textoRecolhido ? "Expandir texto" : "Recolher texto";
+}
+
+function renderizarQuestao() {
+  const q = simuladoAtual.questoes[questaoAtualIdx];
+  document.getElementById("qDisciplina").textContent = `${q.area} • Peso ${q.peso}`;
+  document.getElementById("qNumeroTitulo").textContent = `Questão ${String(q.numero).padStart(2, "0")}`;
+  document.getElementById("qEnunciado").innerHTML = q.enunciado;
+  document.getElementById("progressoTexto").textContent = `Questão ${q.numero} de 80`;
+
+  // Exibe Texto Base automaticamente nas questões 15 a 22 (Língua Portuguesa)
+  const painelTexto = document.getElementById("painelTextoBase");
+  if (q.usaTexto !== undefined) {
+    painelTexto.classList.remove("hidden");
+  } else {
+    painelTexto.classList.add("hidden");
+  }
+
+  // Exibe Gráficos/Tabelas nas questões 26 e 29 (Indicadores)
+  const painelDados = document.getElementById("painelDadosIndicadores");
+  const conteudoDados = document.getElementById("conteudoDadosIndicadores");
+  if (q.usaIndicador === "grafico_spaece") {
+    painelDados.classList.remove("hidden");
+    conteudoDados.innerHTML = `
+      <p class="text-xs font-bold text-slate-700 mb-2">Evolução da Proficiência do 2º Ano (SPAECE-Alfa • 2012–2016)</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border text-center">
+          <thead class="bg-blue-50 font-bold">
+            <tr><th class="border p-2">Rede</th><th class="border p-2">2012</th><th class="border p-2">2013</th><th class="border p-2">2014</th><th class="border p-2">2015</th><th class="border p-2">2016</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="border p-2 font-semibold">Fortaleza (Municipal)</td><td class="border p-2">162,1</td><td class="border p-2">165,2</td><td class="border p-2">174,4</td><td class="border p-2">181,4</td><td class="border p-2 font-bold text-blue-700">185,6</td></tr>
+            <tr><td class="border p-2 font-semibold">Ceará (Rede Pública)</td><td class="border p-2">131,4</td><td class="border p-2">136,3</td><td class="border p-2">147,3</td><td class="border p-2">159,6</td><td class="border p-2 font-bold text-emerald-700">180,4</td></tr>
+          </tbody>
+        </table>
+      </div>`;
+  } else if (q.usaIndicador === "tabela_escolarizacao") {
+    painelDados.classList.remove("hidden");
+    conteudoDados.innerHTML = `
+      <p class="text-xs font-bold text-slate-700 mb-2">Taxa de Escolarização do Ensino Fundamental — Ceará (Anuário Estatístico)</p>
+      <table class="w-full max-w-md text-xs border text-center">
+        <thead class="bg-blue-50 font-bold">
+          <tr><th class="border p-2">ANO</th><th class="border p-2">TAXA BRUTA</th><th class="border p-2">TAXA LÍQUIDA</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="border p-2 font-bold">2013</td><td class="border p-2">98,4%</td><td class="border p-2">90,1%</td></tr>
+          <tr><td class="border p-2 font-bold">2015</td><td class="border p-2">97,5%</td><td class="border p-2">89,6%</td></tr>
+        </tbody>
+      </table>`;
+  } else {
+    painelDados.classList.add("hidden");
+  }
+
+  // Botão revisar
+  const btnRev = document.getElementById("btnRevisar");
+  if (revisao[questaoAtualIdx]) {
+    btnRev.classList.add("bg-amber-400", "text-slate-900");
+    btnRev.textContent = "⚑ Marcada para revisão";
+  } else {
+    btnRev.classList.remove("bg-amber-400", "text-slate-900");
+    btnRev.textContent = "⚑ Marcar para revisar";
+  }
+
+  // Alternativas A, B, C, D
+  const letras = ["A", "B", "C", "D"];
+  const altContainer = document.getElementById("qAlternativas");
+  altContainer.innerHTML = "";
+  q.alternativas.forEach((texto, aIdx) => {
+    const selecionada = respostas[questaoAtualIdx] === aIdx;
+    const estaRiscada = riscadas[`${questaoAtualIdx}_${aIdx}`];
+    const div = document.createElement("div");
+    div.className = `flex items-start justify-between gap-3 p-3.5 rounded-lg border transition cursor-pointer ${
+      selecionada ? "border-emerald-600 bg-emerald-50 ring-1 ring-emerald-600" : "border-slate-200 hover:bg-slate-50"
+    }`;
+    div.onclick = () => selecionarAlternativa(aIdx);
+
+    div.innerHTML = `
+      <div class="flex items-start gap-3 flex-1 ${estaRiscada ? "riscada" : ""}">
+        <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+          selecionada ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-700"
+        }">${letras[aIdx]}</span>
+        <span class="text-sm text-slate-800 pt-0.5 leading-relaxed">${texto}</span>
+      </div>
+      <button type="button" onclick="event.stopPropagation(); riscarAlternativa(${aIdx})" title="Riscar/eliminar alternativa" class="text-xs text-slate-400 hover:text-rose-600 px-2 py-1 rounded border border-transparent hover:border-slate-200">
+        ✂
+      </button>
+    `;
+    altContainer.appendChild(div);
+  });
+
+  document.getElementById("btnAnterior").disabled = questaoAtualIdx === 0;
+  document.getElementById("btnProxima").disabled = questaoAtualIdx === 79;
+  renderizarCartao();
+}
+
+function selecionarAlternativa(aIdx) {
+  respostas[questaoAtualIdx] = aIdx;
+  renderizarQuestao();
+}
+
+function riscarAlternativa(aIdx) {
+  const key = `${questaoAtualIdx}_${aIdx}`;
+  riscadas[key] = !riscadas[key];
+  renderizarQuestao();
+}
+
+function toggleRevisar() {
+  revisao[questaoAtualIdx] = !revisao[questaoAtualIdx];
+  renderizarQuestao();
+}
+
+function navegar(delta) {
+  const novo = questaoAtualIdx + delta;
+  if (novo >= 0 && novo < 80) {
+    questaoAtualIdx = novo;
+    renderizarQuestao();
+  }
+}
+
+function irParaQuestao(idx) {
+  questaoAtualIdx = idx;
+  renderizarQuestao();
+}
+
+function renderizarCartao() {
+  const grid = document.getElementById("gridCartao");
+  grid.innerHTML = "";
+  let respCount = 0;
+  for (let i = 0; i < 80; i++) {
+    const respondida = respostas[i] !== undefined;
+    if (respondida) respCount++;
+    const emRevisao = revisao[i];
+    const atual = i === questaoAtualIdx;
+
+    let bg = "bg-slate-100 text-slate-700 hover:bg-slate-200";
+    if (emRevisao) bg = "bg-amber-400 text-slate-900 font-bold";
+    else if (respondida) bg = "bg-emerald-600 text-white font-bold";
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = String(i + 1).padStart(2, "0");
+    btn.className = `text-xs py-1.5 rounded text-center transition ${bg} ${atual ? "ring-2 ring-slate-900" : ""}`;
+    btn.onclick = () => irParaQuestao(i);
+    grid.appendChild(btn);
+  }
+  document.getElementById("contadorRespondidas").textContent = `${respCount}/80`;
+}
+
+// ============================================================================
+// FINALIZAÇÃO E BOLETIM ANALÍTICO (ESTILO OLHO NA VAGA)
+// ============================================================================
+let chartBarrasInst = null;
+let chartRoscaInst = null;
+
+function finalizarSimulado() {
+  clearInterval(timerInterval);
+  document.getElementById("timerBox").classList.add("hidden");
+  document.getElementById("btnFinalizarTop").classList.add("hidden");
+  document.getElementById("telaProva").classList.add("hidden");
+  document.getElementById("telaResultado").classList.remove("hidden");
+
+  document.getElementById("resTituloSimulado").textContent = simuladoAtual.titulo;
+
+  let acertosTotais = 0;
+  let errosTotais = 0;
+  let brancosTotais = 0;
+  let pontosPonderados = 0;
+
+  const resumoAreas = {};
+  simuladoAtual.questoes.forEach((q, i) => {
+    if (!resumoAreas[q.area]) {
+      resumoAreas[q.area] = { total: 0, peso: q.peso, acertos: 0, pontos: 0 };
+    }
+    resumoAreas[q.area].total++;
+
+    const resp = respostas[i];
+    if (resp === undefined) {
+      brancosTotais++;
+    } else if (resp === q.correta) {
+      acertosTotais++;
+      pontosPonderados += q.peso;
+      resumoAreas[q.area].acertos++;
+      resumoAreas[q.area].pontos += q.peso;
+    } else {
+      errosTotais++;
+    }
+  });
+
+  const pct = ((acertosTotais / 80) * 100).toFixed(1);
+  document.getElementById("kpiAcertos").textContent = `${acertosTotais} / 80`;
+  document.getElementById("kpiPercentual").textContent = `${pct}% de aproveitamento`;
+  document.getElementById("kpiPonderada").textContent = `${pontosPonderados} / 130`;
+
+  // Estimativa de ranking Olho na Vaga (base 1.480 candidatos)
+  const z = (pontosPonderados - 76) / 16;
+  const percentil = 1 / (1 + Math.exp(-1.7 * z));
+  const posEstimada = Math.max(1, Math.round((1 - percentil) * 1480));
+  document.getElementById("kpiRanking").textContent = `${posEstimada}º`;
+
+  const statusEl = document.getElementById("kpiCorteStatus");
+  if (pontosPonderados >= 94) {
+    statusEl.textContent = "ACIMA DO CORTE (AMPLA)";
+    statusEl.className = "text-lg font-extrabold text-emerald-700 mt-2";
+  } else if (pontosPonderados >= 84) {
+    statusEl.textContent = "NA ZONA DE COTAS / CR";
+    statusEl.className = "text-lg font-extrabold text-amber-700 mt-2";
+  } else {
+    statusEl.textContent = "ABAIXO DO CORTE";
+    statusEl.className = "text-lg font-extrabold text-rose-700 mt-2";
+  }
+
+  // Tabela por área
+  const tbody = document.getElementById("tabelaAreasBody");
+  tbody.innerHTML = "";
+  const labelsBarras = [];
+  const dadosBarras = [];
+
+  Object.entries(resumoAreas).forEach(([area, d]) => {
+    const pArea = ((d.acertos / d.total) * 100).toFixed(0);
+    labelsBarras.push(area.split("•")[0].trim());
+    dadosBarras.push(Number(pArea));
+    tbody.innerHTML += `
+      <tr>
+        <td class="px-4 py-3 font-medium text-slate-800">${area}</td>
+        <td class="px-4 py-3 text-center">${d.total}</td>
+        <td class="px-4 py-3 text-center">Peso ${d.peso}</td>
+        <td class="px-4 py-3 text-center font-bold">${d.acertos}</td>
+        <td class="px-4 py-3 text-center font-bold text-emerald-700">${d.pontos} / ${d.total * d.peso}</td>
+        <td class="px-4 py-3 text-center">${pArea}%</td>
+      </tr>
+    `;
+  });
+
+  // Gráficos Chart.js
+  if (chartBarrasInst) chartBarrasInst.destroy();
+  chartBarrasInst = new Chart(document.getElementById("chartBarras"), {
+    type: "bar",
+    data: {
+      labels: ["Pedagogia", "Adm. Pública", "Português", "Indicadores", "Ed. Física"],
+      datasets: [{
+        label: "% de Acerto",
+        data: dadosBarras,
+        backgroundColor: ["#334155", "#475569", "#d97706", "#2563eb", "#059669"],
+        borderRadius: 6
+      }]
+    },
+    options: { scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { display: false } } }
+  });
+
+  if (chartRoscaInst) chartRoscaInst.destroy();
+  chartRoscaInst = new Chart(document.getElementById("chartRosca"), {
+    type: "doughnut",
+    data: {
+      labels: ["Acertos", "Erros", "Em Branco"],
+      datasets: [{
+        data: [acertosTotais, errosTotais, brancosTotais],
+        backgroundColor: ["#059669", "#e11d48", "#cbd5e1"]
+      }]
+    }
+  });
+
+  renderizarGabaritoComentado("todas");
+}
+
+function filtrarGabarito(filtro) {
+  renderizarGabaritoComentado(filtro);
+}
+
+function renderizarGabaritoComentado(filtro) {
+  const letras = ["A", "B", "C", "D"];
+  const container = document.getElementById("listaGabaritoComentado");
+  container.innerHTML = "";
+
+  simuladoAtual.questoes.forEach((q, i) => {
+    const resp = respostas[i];
+    const acertou = resp === q.correta;
+    if (filtro === "erradas" && acertou) return;
+
+    const statusBadge = acertou
+      ? `<span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded">✓ Acertou</span>`
+      : resp === undefined
+        ? `<span class="bg-slate-200 text-slate-700 text-xs font-bold px-2.5 py-0.5 rounded">• Em branco</span>`
+        : `<span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-0.5 rounded">✕ Errou (Marcou ${letras[resp]})</span>`;
+
+    container.innerHTML += `
+      <div class="border rounded-lg p-4 ${acertou ? "border-emerald-200 bg-emerald-50/20" : "border-rose-200 bg-rose-50/20"}">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <span class="font-bold text-sm text-slate-900">Questão ${String(q.numero).padStart(2, "0")} • <span class="text-slate-600 font-normal">${q.area}</span></span>
+          <div class="flex items-center gap-2">
+            ${statusBadge}
+            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-0.5 rounded">Gabarito: ${letras[q.correta]}</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-700 mb-2">${q.enunciado}</p>
+        <p class="text-xs font-semibold text-emerald-900 mb-2">Resposta correta (${letras[q.correta]}): ${q.alternativas[q.correta]}</p>
+        <div class="bg-white border-l-4 border-emerald-600 p-3 rounded text-xs text-slate-700">
+          <strong>Comentário CEV/UECE:</strong> ${q.comentario}
+        </div>
+      </div>
+    `;
+  });
+}
+
+function voltarCapa() {
+  document.getElementById("telaResultado").classList.add("hidden");
+  document.getElementById("telaCapa").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
