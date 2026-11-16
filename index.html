@@ -30,7 +30,8 @@
         <p class="text-xs text-slate-300">Padrão Edital 30/2018 (CEV/UECE) • 80 Questões • Textos Numerados & Indicadores</p>
       </div>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 flex-wrap">
+      <span id="statusSalvamento" role="status" aria-live="polite" class="text-[11px] text-emerald-300 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5">● Salvamento automático ativado</span>
       <select id="simuladoSelect" onchange="carregarSimulado(this.value)" class="bg-slate-800 border border-slate-600 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-400">
       </select>
       <div id="timerBox" class="hidden bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg font-mono text-sm font-bold text-emerald-400">
@@ -99,6 +100,10 @@
           <span class="font-bold text-emerald-800">50 questões</span>
         </div>
       </div>
+    </div>
+
+    <div class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs leading-relaxed text-emerald-900">
+      <strong>Salvamento automático:</strong> suas respostas, marcações de revisão, alternativas riscadas e questão atual são gravadas neste navegador. Se a página for atualizada ou fechada acidentalmente, o simulado será restaurado. O progresso não é compartilhado entre dispositivos ou navegadores; evite limpar os dados do navegador.
     </div>
 
     <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-300">
@@ -1502,17 +1507,26 @@ function montarCaderno(simIdx) {
 }
 
 // ============================================================================
-// ESTADO DA APLICAÇÃO
+// ESTADO DA APLICAÇÃO + SALVAMENTO AUTOMÁTICO E RESTAURAÇÃO
 // ============================================================================
+const CHAVE_STORAGE_PREFIX = "seduc_ce_educacao_fisica_uece_v1_";
+const CHAVE_ULTIMO_SIMULADO = "seduc_ce_educacao_fisica_uece_ultimo_simulado_v1";
+const DURACAO_PROVA_SEGUNDOS = 4 * 3600;
+
 let simuladoAtual = montarCaderno(0);
+let simuladoAtualIdx = 0;
 let questaoAtualIdx = 0;
 let respostas = {};      // { qIdx: altIdx }
 let revisao = {};        // { qIdx: true }
 let riscadas = {};       // { "qIdx_altIdx": true }
 let timerInterval = null;
-let segundosRestantes = 4 * 3600; // 4 horas exatas da prova UECE 2018
+let segundosRestantes = DURACAO_PROVA_SEGUNDOS;
+let provaIniciada = false;
+let provaFinalizada = false;
+let usarCronometroAtual = true;
+let fimDaProvaTimestamp = null;
 
-// Inicializa seletor de 10 simulados
+// Inicializa seletor de 10 simulados.
 const selectEl = document.getElementById("simuladoSelect");
 VARIACOES_SIMULADOS.forEach((s, i) => {
   const opt = document.createElement("option");
@@ -1521,46 +1535,267 @@ VARIACOES_SIMULADOS.forEach((s, i) => {
   selectEl.appendChild(opt);
 });
 
-function carregarSimulado(idx) {
-  simuladoAtual = montarCaderno(Number(idx));
-  questaoAtualIdx = 0;
-  respostas = {};
-  revisao = {};
-  riscadas = {};
-  clearInterval(timerInterval);
-  document.getElementById("timerBox").classList.add("hidden");
-  document.getElementById("btnFinalizarTop").classList.add("hidden");
+function chaveEstadoSimulado(idx = simuladoAtualIdx) {
+  return `${CHAVE_STORAGE_PREFIX}${idx}`;
+}
+
+function lerUltimoSimulado() {
+  try {
+    const salvo = Number(localStorage.getItem(CHAVE_ULTIMO_SIMULADO));
+    return Number.isInteger(salvo) && salvo >= 0 && salvo < VARIACOES_SIMULADOS.length ? salvo : 0;
+  } catch (erro) {
+    return 0;
+  }
+}
+
+function registrarUltimoSimulado(idx) {
+  try {
+    localStorage.setItem(CHAVE_ULTIMO_SIMULADO, String(idx));
+  } catch (erro) {
+    // O progresso da prova continua sendo tratado separadamente.
+  }
+}
+
+function atualizarStatusSalvamento(mensagem, erro = false) {
+  const el = document.getElementById("statusSalvamento");
+  if (!el) return;
+  el.textContent = mensagem;
+  el.className = erro
+    ? "text-[11px] text-rose-200 bg-rose-950 border border-rose-700 rounded-lg px-2.5 py-1.5"
+    : "text-[11px] text-emerald-300 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5";
+}
+
+function estadoParaSalvar() {
+  let segundosSalvos = segundosRestantes;
+  if (usarCronometroAtual && fimDaProvaTimestamp && provaIniciada && !provaFinalizada) {
+    segundosSalvos = Math.max(0, Math.ceil((fimDaProvaTimestamp - Date.now()) / 1000));
+  }
+
+  return {
+    versao: 1,
+    simuladoId: simuladoAtualIdx,
+    questaoAtualIdx,
+    respostas,
+    revisao,
+    riscadas,
+    provaIniciada,
+    provaFinalizada,
+    usarCronometro: usarCronometroAtual,
+    segundosRestantes: segundosSalvos,
+    fimDaProvaTimestamp,
+    atualizadoEm: Date.now()
+  };
+}
+
+function salvarEstadoAtual() {
+  if (!simuladoAtual) return false;
+  try {
+    localStorage.setItem(chaveEstadoSimulado(), JSON.stringify(estadoParaSalvar()));
+    const horario = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    atualizarStatusSalvamento(`✓ Salvo automaticamente às ${horario}`);
+    return true;
+  } catch (erro) {
+    console.error("Não foi possível salvar o progresso do simulado:", erro);
+    atualizarStatusSalvamento("⚠ Não foi possível salvar neste navegador", true);
+    return false;
+  }
+}
+
+function lerEstadoSalvo(idx) {
+  try {
+    const bruto = localStorage.getItem(chaveEstadoSimulado(idx));
+    if (!bruto) return null;
+    const estado = JSON.parse(bruto);
+    if (!estado || estado.versao !== 1 || Number(estado.simuladoId) !== Number(idx)) return null;
+
+    const respostasValidas = {};
+    Object.entries(estado.respostas || {}).forEach(([q, a]) => {
+      const qi = Number(q);
+      const ai = Number(a);
+      if (Number.isInteger(qi) && qi >= 0 && qi < 80 && Number.isInteger(ai) && ai >= 0 && ai < 4) {
+        respostasValidas[qi] = ai;
+      }
+    });
+
+    const revisoesValidas = {};
+    Object.entries(estado.revisao || {}).forEach(([q, marcado]) => {
+      const qi = Number(q);
+      if (Number.isInteger(qi) && qi >= 0 && qi < 80 && marcado === true) revisoesValidas[qi] = true;
+    });
+
+    const riscadasValidas = {};
+    Object.entries(estado.riscadas || {}).forEach(([chave, marcado]) => {
+      if (/^(?:[0-9]|[1-7][0-9])_[0-3]$/.test(chave) && marcado === true) riscadasValidas[chave] = true;
+    });
+
+    return {
+      questaoAtualIdx: Number.isInteger(Number(estado.questaoAtualIdx))
+        ? Math.min(79, Math.max(0, Number(estado.questaoAtualIdx))) : 0,
+      respostas: respostasValidas,
+      revisao: revisoesValidas,
+      riscadas: riscadasValidas,
+      provaIniciada: estado.provaIniciada === true,
+      provaFinalizada: estado.provaFinalizada === true,
+      usarCronometro: estado.usarCronometro !== false,
+      segundosRestantes: Number.isFinite(Number(estado.segundosRestantes))
+        ? Math.min(DURACAO_PROVA_SEGUNDOS, Math.max(0, Number(estado.segundosRestantes)))
+        : DURACAO_PROVA_SEGUNDOS,
+      fimDaProvaTimestamp: estado.fimDaProvaTimestamp !== null && estado.fimDaProvaTimestamp !== undefined
+        && Number.isFinite(Number(estado.fimDaProvaTimestamp))
+        ? Number(estado.fimDaProvaTimestamp) : null
+    };
+  } catch (erro) {
+    console.error("Não foi possível recuperar o progresso salvo:", erro);
+    atualizarStatusSalvamento("⚠ Falha ao ler o progresso salvo", true);
+    return null;
+  }
+}
+
+function mostrarTelaCapa() {
   document.getElementById("telaProva").classList.add("hidden");
   document.getElementById("telaResultado").classList.add("hidden");
   document.getElementById("telaCapa").classList.remove("hidden");
+  document.getElementById("timerBox").classList.add("hidden");
+  document.getElementById("btnFinalizarTop").classList.add("hidden");
 }
 
-function iniciarProva() {
+function mostrarTelaProva() {
   document.getElementById("telaCapa").classList.add("hidden");
   document.getElementById("telaResultado").classList.add("hidden");
   document.getElementById("telaProva").classList.remove("hidden");
   document.getElementById("btnFinalizarTop").classList.remove("hidden");
+  if (usarCronometroAtual) document.getElementById("timerBox").classList.remove("hidden");
+  else document.getElementById("timerBox").classList.add("hidden");
+}
 
-  if (document.getElementById("usarCronometro").checked) {
-    segundosRestantes = 4 * 3600;
-    const tBox = document.getElementById("timerBox");
-    tBox.classList.remove("hidden");
-    atualizarTimerDisplay();
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-      segundosRestantes--;
-      atualizarTimerDisplay();
-      if (segundosRestantes <= 0) {
-        clearInterval(timerInterval);
-        finalizarSimulado();
-      }
-    }, 1000);
+function iniciarTimerPersistido() {
+  clearInterval(timerInterval);
+  if (!usarCronometroAtual || !provaIniciada || provaFinalizada) return;
+
+  // O prazo é absoluto: o tempo continua correndo mesmo se a aba for fechada.
+  if (!fimDaProvaTimestamp) {
+    fimDaProvaTimestamp = Date.now() + segundosRestantes * 1000;
   }
 
+  const atualizarContagem = () => {
+    segundosRestantes = Math.max(0, Math.ceil((fimDaProvaTimestamp - Date.now()) / 1000));
+    atualizarTimerDisplay();
+
+    if (segundosRestantes <= 0) {
+      clearInterval(timerInterval);
+      finalizarSimulado();
+      return;
+    }
+
+    // A gravação do cronômetro ocorre periodicamente; respostas e navegação são salvas imediatamente.
+    if (segundosRestantes % 5 === 0) salvarEstadoAtual();
+  };
+
+  atualizarContagem();
+  if (segundosRestantes > 0) timerInterval = setInterval(atualizarContagem, 1000);
+}
+
+function carregarSimulado(idx, inicializacao = false) {
+  // Antes de trocar de caderno, guarda o progresso do simulado que estava aberto.
+  if (!inicializacao && simuladoAtual) salvarEstadoAtual();
+  clearInterval(timerInterval);
+
+  simuladoAtualIdx = Number(idx);
+  registrarUltimoSimulado(simuladoAtualIdx);
+  simuladoAtual = montarCaderno(simuladoAtualIdx);
+  selectEl.value = String(simuladoAtualIdx);
+
+  const estado = lerEstadoSalvo(simuladoAtualIdx);
+  if (!estado) {
+    questaoAtualIdx = 0;
+    respostas = {};
+    revisao = {};
+    riscadas = {};
+    provaIniciada = false;
+    provaFinalizada = false;
+    usarCronometroAtual = document.getElementById("usarCronometro").checked;
+    segundosRestantes = DURACAO_PROVA_SEGUNDOS;
+    fimDaProvaTimestamp = null;
+    mostrarTelaCapa();
+    atualizarStatusSalvamento("● Salvamento automático ativado");
+    return;
+  }
+
+  // Restaura todas as informações da tentativa deste simulado.
+  questaoAtualIdx = estado.questaoAtualIdx;
+  respostas = estado.respostas;
+  revisao = estado.revisao;
+  riscadas = estado.riscadas;
+  provaIniciada = estado.provaIniciada;
+  provaFinalizada = estado.provaFinalizada;
+  usarCronometroAtual = estado.usarCronometro;
+  segundosRestantes = estado.segundosRestantes;
+  fimDaProvaTimestamp = estado.fimDaProvaTimestamp;
+  document.getElementById("usarCronometro").checked = usarCronometroAtual;
+
+  if (provaFinalizada) {
+    finalizarSimulado();
+    atualizarStatusSalvamento("✓ Resultado e respostas restaurados");
+    return;
+  }
+
+  if (provaIniciada) {
+    mostrarTelaProva();
+    renderizarTextoBase();
+    renderizarQuestao();
+    if (usarCronometroAtual) iniciarTimerPersistido();
+    atualizarStatusSalvamento("✓ Progresso recuperado automaticamente");
+    salvarEstadoAtual();
+    return;
+  }
+
+  mostrarTelaCapa();
+  atualizarStatusSalvamento("✓ Progresso salvo neste navegador");
+}
+
+function iniciarProva() {
+  // Ao iniciar novamente após a entrega, cria uma nova tentativa para este caderno.
+  if (provaFinalizada) {
+    questaoAtualIdx = 0;
+    respostas = {};
+    revisao = {};
+    riscadas = {};
+    provaFinalizada = false;
+    provaIniciada = false;
+    fimDaProvaTimestamp = null;
+  }
+
+  if (!provaIniciada) {
+    provaIniciada = true;
+    usarCronometroAtual = document.getElementById("usarCronometro").checked;
+    segundosRestantes = DURACAO_PROVA_SEGUNDOS;
+    fimDaProvaTimestamp = usarCronometroAtual ? Date.now() + DURACAO_PROVA_SEGUNDOS * 1000 : null;
+  }
+
+  mostrarTelaProva();
   renderizarTextoBase();
   renderizarCartao();
   renderizarQuestao();
+
+  if (usarCronometroAtual) {
+    document.getElementById("timerBox").classList.remove("hidden");
+    iniciarTimerPersistido();
+  } else {
+    document.getElementById("timerBox").classList.add("hidden");
+    clearInterval(timerInterval);
+  }
+  salvarEstadoAtual();
 }
+
+// Salva também quando o usuário muda de aba, atualiza ou fecha a página.
+window.addEventListener("pagehide", salvarEstadoAtual);
+window.addEventListener("beforeunload", salvarEstadoAtual);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") salvarEstadoAtual();
+});
+
+// Na primeira abertura, tenta recuperar automaticamente o último caderno selecionado.
+carregarSimulado(lerUltimoSimulado(), true);
 
 function atualizarTimerDisplay() {
   const h = String(Math.floor(segundosRestantes / 3600)).padStart(2, "0");
@@ -1679,6 +1914,7 @@ function renderizarQuestao() {
   document.getElementById("btnAnterior").disabled = questaoAtualIdx === 0;
   document.getElementById("btnProxima").disabled = questaoAtualIdx === 79;
   renderizarCartao();
+  salvarEstadoAtual();
 }
 
 function selecionarAlternativa(aIdx) {
@@ -1742,6 +1978,12 @@ let chartRoscaInst = null;
 
 function finalizarSimulado() {
   clearInterval(timerInterval);
+  provaIniciada = true;
+  provaFinalizada = true;
+  if (usarCronometroAtual && fimDaProvaTimestamp) {
+    segundosRestantes = Math.max(0, Math.ceil((fimDaProvaTimestamp - Date.now()) / 1000));
+  }
+  salvarEstadoAtual();
   document.getElementById("timerBox").classList.add("hidden");
   document.getElementById("btnFinalizarTop").classList.add("hidden");
   document.getElementById("telaProva").classList.add("hidden");
@@ -1890,8 +2132,8 @@ function renderizarGabaritoComentado(filtro) {
 }
 
 function voltarCapa() {
-  document.getElementById("telaResultado").classList.add("hidden");
-  document.getElementById("telaCapa").classList.remove("hidden");
+  mostrarTelaCapa();
+  atualizarStatusSalvamento("✓ Resultado e respostas salvos neste navegador");
 }
 </script>
 </body>
